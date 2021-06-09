@@ -16,6 +16,17 @@ class skeleton():
             (463, 78, 35, 50),
             (527, 78, 35, 50),
         ],-1)
+        self.walkingRight = ss.images_at([
+            ##(15 , 78, 35, 50),
+            (79, 206, 35, 50),
+            (143, 206, 35, 50),
+            (207, 206, 35, 50),
+            (271, 206, 35, 50),
+            (335, 206, 35, 50),
+            (399, 206, 35, 50),
+            (463, 206, 35, 50),
+            (527, 206, 35, 50),
+        ],-1)
         self.currentFrame = 0
         self.currentAnimation = [self.standing]
         self.x = 0
@@ -25,7 +36,6 @@ class skeleton():
     def walkLeft(self):
         self.direction=-1
         self.currentAnimation = self.walkingLeft
-
     def setPosition(self,x,y):
         self.x=x
         self.y=y
@@ -33,4 +43,8 @@ class skeleton():
         self.currentFrame = self.currentFrame+1
         if self.currentFrame >= len(self.currentAnimation):
             self.currentFrame = 0
+        self.x = self.x + (self.direction*3)
+    def walkRight(self):
+        self.direction=1
+        self.currentAnimation = self.walkingRight
 
