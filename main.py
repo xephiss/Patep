@@ -1,12 +1,22 @@
 import pygame
-background_colour = (255,255,255)
-(width, height) = (300, 200)
+import skeleton
+background_colour = (128,100,255)
+(width, height) = (500, 700)
 screen = pygame.display.set_mode((width, height))
-pygame.display.set_caption('Tutorial 1')
+pygame.display.set_caption('Platformer')
 screen.fill(background_colour)
+skeleton1=skeleton.skeleton()
+skeleton1.walkLeft()
 pygame.display.flip()
+clock = pygame.time.Clock()
 running = True
+
 while running:
   for event in pygame.event.get():
     if event.type == pygame.QUIT:
       running = False
+  screen.fill(background_colour)
+  skeleton1.draw(screen)
+  pygame.display.flip()
+  skeleton1.nextFrame()
+  clock.tick(1)
