@@ -1,4 +1,6 @@
 import pygame
+
+
 class spritesheet(object):
     def __init__(self, filename):
         try:
@@ -7,6 +9,7 @@ class spritesheet(object):
             print('Unable to load spritesheet image:', filename)
             raise SystemExit(message)
     # Load a specific image from a specific rectangle
+
     def image_at(self, rectangle, colorkey = None):
         "Loads image from x,y,x+offset,y+offset"
         rect = pygame.Rect(rectangle)
@@ -18,6 +21,7 @@ class spritesheet(object):
             image.set_colorkey(colorkey, pygame.RLEACCEL)
         return image
     # Load a whole bunch of images and return them as a list
+
     def images_at(self, rects, colorkey = None):
         "Loads multiple images, supply a list of coordinates"
         return [self.image_at(rect, colorkey) for rect in rects]

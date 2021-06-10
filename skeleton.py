@@ -1,7 +1,7 @@
 import spritesheet
 
 
-class skeleton():
+class Skeleton:
     def __init__(self):
         self.direction = 1
         ss = spritesheet.spritesheet('skeleton_sheet.png')
@@ -37,12 +37,12 @@ class skeleton():
         screen.blit(self.currentAnimation[self.currentFrame], (self.x, self.y))
 
     def walk_left(self):
-        self.direction=-1
+        self.direction = -1
         self.currentAnimation = self.walkingLeft
 
-    def set_position(self,x,y):
-        self.x=x
-        self.y=y
+    def set_position(self, x, y):
+        self.x = x
+        self.y = y
 
     def next_frame(self):
         self.currentFrame = self.currentFrame+1

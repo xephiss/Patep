@@ -4,7 +4,7 @@ import skeleton
 
 class GameState:
     def __init__(self, window_surface, clock):
-        self.skeleton1 = skeleton.skeleton()
+        self.skeleton1 = skeleton.Skeleton()
         self.clock = clock
         self.transition_target = None
         self.window_surface = window_surface
