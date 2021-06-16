@@ -1,10 +1,13 @@
 import pygame
 import skeleton
-
+import game_platform
 
 class GameState:
     def __init__(self, window_surface, clock):
         self.skeleton1 = skeleton.Skeleton()
+
+        self.platform1 = game_platform.Platform(100, 300, 256, 64)
+
         self.clock = clock
         self.transition_target = None
         self.window_surface = window_surface
@@ -19,6 +22,10 @@ class GameState:
         self.instructions_text_pos_rect = None
 
     def start(self):
+        self.skeleton1.set_position(480, 300)
+        # skeleton1.walkLeft()
+        self.skeleton1.walk_right()
+
         self.transition_target = None
         self.background_surf = pygame.Surface((800, 600))
         self.background_surf.fill((0, 0, 0))
@@ -32,16 +39,6 @@ class GameState:
 
         self.instructions_text_pos_rect = self.instructions_text.get_rect()
         self.instructions_text_pos_rect.center = (400, 100)
-
-    def animation(self):
-        self.skeleton1.set_position(480, 300)
-        # skeleton1.walkLeft()
-        self.skeleton1.walk_right()
-        pygame.display.flip()
-        self.skeleton1.draw(self.window_surface)
-        pygame.display.flip()
-        self.skeleton1.next_frame()
-        self.clock.tick(4)
 
     def stop(self):
         self.background_surf = None
@@ -61,3 +58,6 @@ class GameState:
         self.window_surface.blit(self.title_text, self.title_pos_rect)
         # stick the instructions below
         self.window_surface.blit(self.instructions_text, self.instructions_text_pos_rect)
+        self.skeleton1.update(time_delta)
+        self.skeleton1.draw(self.window_surface)
+        self.platform1.draw(self.window_surface)

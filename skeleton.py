@@ -1,11 +1,12 @@
 import spritesheet
 
-
 class Skeleton:
     def __init__(self):
         self.direction = 1
         ss = spritesheet.spritesheet('skeleton_sheet.png')
         self.standing = ss.image_at((14, 143, 35, 48), -1)
+        self.timeSinceFrame = 0
+        self.skeletonWalkingSpeed = 0.125
         self.walkingLeft = ss.images_at([
             # (15 , 78, 35, 50),#
             (79, 78, 35, 50),
@@ -52,3 +53,11 @@ class Skeleton:
 
     def walk_right(self):
         self.currentAnimation = self.walkingRight
+
+    def update(self,time_delta):
+        self.timeSinceFrame += time_delta
+        if self.timeSinceFrame >= self.skeletonWalkingSpeed:
+            self.next_frame()
+            self.timeSinceFrame = 0
+
+
