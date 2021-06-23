@@ -1,9 +1,12 @@
 import spritesheet
 
+from gravity import Gravity
+
+
 class Skeleton:
     def __init__(self):
         self.direction = 1
-        ss = spritesheet.spritesheet('skeleton_sheet.png')
+        ss = spritesheet.SpriteSheet('skeleton_sheet.png')
         self.standing = ss.image_at((14, 143, 35, 48), -1)
         self.timeSinceFrame = 0
         self.skeletonWalkingSpeed = 0.125
@@ -37,6 +40,7 @@ class Skeleton:
         self.accelerationY = 0
         self.width = 35
         self.height = 50
+        self.gravity = Gravity(self)
 
     def draw(self, screen):
         screen.blit(self.currentAnimation[self.currentFrame], (self.x, self.y))
@@ -58,19 +62,9 @@ class Skeleton:
     def walk_right(self):
         self.currentAnimation = self.walkingRight
 
-    def update(self,time_delta):
+    def update(self, time_delta):
         self.timeSinceFrame += time_delta
         if self.timeSinceFrame >= self.skeletonWalkingSpeed:
             self.next_frame()
             self.timeSinceFrame = 0
-        self.velocityY = self.velocityY + (self.accelerationY * time_delta)
-        self.y = self.y + (self.velocityY * time_delta)
-
-    def fall(self):
-        self.accelerationY = 25
-
-
-    def stop_falling(self):
-        self.accelerationY = 0
-        self.velocityY = 0
-
+            self.gravity.update_velocity_y(time_delta)

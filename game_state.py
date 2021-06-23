@@ -2,8 +2,10 @@ import pygame
 import skeleton
 import game_platform
 
+
 class GameState:
     def __init__(self, window_surface, clock):
+        self.platform1 = game_platform.Platform(100, 320, 256, 64)
         self.skeleton1 = skeleton.Skeleton()
 
         self.clock = clock
@@ -20,7 +22,6 @@ class GameState:
         self.instructions_text_pos_rect = None
 
     def start(self):
-        self.platform1 = game_platform.Platform(100, 320, 256, 64)
         self.skeleton1.set_position(110, 200)
         # skeleton1.walkLeft()
         self.skeleton1.walk_right()
@@ -60,12 +61,12 @@ class GameState:
         self.skeleton1.update(time_delta)
         self.skeleton1.draw(self.window_surface)
         self.platform1.draw(self.window_surface)
-        self.skeleton1.fall()
-        self.handle_floor(self.skeleton1,self.platform1)
+        self.skeleton1.gravity.fall()
+        self.handle_floor(self.skeleton1, self.platform1)
 
-    def handle_floor(self,spriteThatFalls, platform):
-        bottomOfSprite = spriteThatFalls.y + spriteThatFalls.height
-        topOfPlatform = platform.y + 2
-        if spriteThatFalls.x >= platform.x and spriteThatFalls.x <= platform.x + platform.width:
-            if bottomOfSprite < topOfPlatform and bottomOfSprite > topOfPlatform - 1:
-                spriteThatFalls.stop_falling()
+    def handle_floor(self, sprite_that_falls, platform):
+        bottom_of_sprite = sprite_that_falls.y + sprite_that_falls.height
+        top_of_platform = platform.y + 2
+        if platform.x <= sprite_that_falls.x <= platform.x + platform.width:
+            if top_of_platform > bottom_of_sprite > top_of_platform - 1:
+                sprite_that_falls.gravity.stop_falling()
