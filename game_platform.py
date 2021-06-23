@@ -8,8 +8,9 @@ class Platform():
 
         self.x = x
         self.y = y
-        self.width = width
         self.height = height
+        self.numHorizontalTiles = math.ceil(width / 64)
+        self.width = (self.numHorizontalTiles + 0.6) * 64
         self.loadTiles()
 
 
@@ -27,7 +28,7 @@ class Platform():
 
     def draw(self, screen):
         currentPos = self.x
-        numHorizontalTiles = math.ceil(self.width/64)
+        numHorizontalTiles = self.numHorizontalTiles
         screen.blit(self.leftTile, (currentPos, self.y))
         currentPos += self.BLOCK_SIZE
         if numHorizontalTiles > 2:

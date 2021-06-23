@@ -33,6 +33,10 @@ class Skeleton:
         self.currentAnimation = [self.standing]
         self.x = 0
         self.y = 0
+        self.velocityY = 0
+        self.accelerationY = 0
+        self.width = 35
+        self.height = 50
 
     def draw(self, screen):
         screen.blit(self.currentAnimation[self.currentFrame], (self.x, self.y))
@@ -59,5 +63,14 @@ class Skeleton:
         if self.timeSinceFrame >= self.skeletonWalkingSpeed:
             self.next_frame()
             self.timeSinceFrame = 0
+        self.velocityY = self.velocityY + (self.accelerationY * time_delta)
+        self.y = self.y + (self.velocityY * time_delta)
 
+    def fall(self):
+        self.accelerationY = 25
+
+
+    def stop_falling(self):
+        self.accelerationY = 0
+        self.velocityY = 0
 
