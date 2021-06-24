@@ -42,6 +42,7 @@ class Skeleton:
         self.height = 50
         self.gravity = Gravity(self)
 
+
     def draw(self, screen):
         screen.blit(self.currentAnimation[self.currentFrame], (self.x, self.y))
 
@@ -67,4 +68,5 @@ class Skeleton:
         if self.timeSinceFrame >= self.skeletonWalkingSpeed:
             self.next_frame()
             self.timeSinceFrame = 0
-            self.gravity.update_velocity_y(time_delta)
+        self.gravity.update_velocity_y(time_delta)
+

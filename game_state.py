@@ -25,6 +25,7 @@ class GameState:
         self.skeleton1.set_position(110, 200)
         # skeleton1.walkLeft()
         self.skeleton1.walk_right()
+        self.skeleton1.gravity.fall()
 
         self.transition_target = None
         self.background_surf = pygame.Surface((800, 600))
@@ -59,14 +60,18 @@ class GameState:
         # stick the instructions below
         self.window_surface.blit(self.instructions_text, self.instructions_text_pos_rect)
         self.skeleton1.update(time_delta)
+        self.skeleton1.gravity.fall()
         self.skeleton1.draw(self.window_surface)
         self.platform1.draw(self.window_surface)
-        self.skeleton1.gravity.fall()
+
         self.handle_floor(self.skeleton1, self.platform1)
 
     def handle_floor(self, sprite_that_falls, platform):
+        # set co-ordinate for bottom of sprite
         bottom_of_sprite = sprite_that_falls.y + sprite_that_falls.height
         top_of_platform = platform.y + 2
         if platform.x <= sprite_that_falls.x <= platform.x + platform.width:
-            if top_of_platform > bottom_of_sprite > top_of_platform - 1:
+            # checks if sprite is colliding with the platform
+            if top_of_platform > bottom_of_sprite > top_of_platform - 3:
                 sprite_that_falls.gravity.stop_falling()
+

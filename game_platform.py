@@ -6,9 +6,7 @@ class Platform:
     BLOCK_SIZE = 64
 
     def __init__(self, x, y, width, height):
-
         self.platformTiles = ["13.png", "14.png", "15.png"]
-
         self.x = x
         self.y = y
         self.height = height
