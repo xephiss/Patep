@@ -1,3 +1,4 @@
+#import the library pygame
 import pygame
 
 from pygame_gui.elements import UIButton
@@ -6,6 +7,7 @@ from pygame_gui import UI_BUTTON_PRESSED
 
 class SettingsState:
     def __init__(self, window_surface, ui_manager):
+        #
         self.transition_target = None
         self.window_surface = window_surface
         self.ui_manager = ui_manager

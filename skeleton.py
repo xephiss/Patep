@@ -1,5 +1,7 @@
+#import the file spritesheet
 import spritesheet
 
+## import the class Gravity from the file gravity##
 from gravity import Gravity
 
 
@@ -44,23 +46,28 @@ class Skeleton:
 
 
     def draw(self, screen):
+        # draw the animation to the screen
         screen.blit(self.currentAnimation[self.currentFrame], (self.x, self.y))
 
     def walk_left(self):
+        # make the skeleton walk left
         self.direction = -1
         self.currentAnimation = self.walkingLeft
 
     def set_position(self, x, y):
+        # set the position of the skeleton
         self.x = x
         self.y = y
 
     def next_frame(self):
+        # finds the next frame in the animation sequence
         self.currentFrame = self.currentFrame+1
         if self.currentFrame >= len(self.currentAnimation):
             self.currentFrame = 0
         self.x = self.x + (self.direction*3)
 
     def walk_right(self):
+        #make the skeleton walk right
         self.currentAnimation = self.walkingRight
 
     def update(self, time_delta):
