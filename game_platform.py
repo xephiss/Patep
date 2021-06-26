@@ -1,4 +1,4 @@
-#import the libraries pygame and math
+# import the libraries pygame and math
 import pygame
 import math
 
@@ -7,7 +7,7 @@ class Platform:
     BLOCK_SIZE = 64
 
     def __init__(self, x, y, width, height):
-        #initialse the platform tiles and the width,height, x and y of the tiles as well as the number of tiles
+        # initialse the platform tiles and the width,height, x and y of the tiles as well as the number of tiles
         self.platformTiles = ["13.png", "14.png", "15.png"]
         self.x = x
         self.y = y
@@ -19,12 +19,12 @@ class Platform:
         self.leftTile = self.load_tile(self.platformTiles[0])
 
     def load_tile(self, filename):
-        #load the tiles
+        # load the tiles
         path_name = "tiles/png/Tiles/" + filename
         surface = pygame.image.load(path_name)
-        #delete the white space in the tiles so that only the platform itself appears
+        # delete the white space in the tiles so that only the platform itself appears
         surface.set_colorkey(pygame.Color(255, 255, 255), pygame.RLEACCEL)
-        #return the loaded tile that has been correctly scaled
+        # return the loaded tile that has been correctly scaled
         return pygame.transform.scale(surface, (self.BLOCK_SIZE, self.BLOCK_SIZE)).convert()
 
     def draw(self, screen):
@@ -38,7 +38,7 @@ class Platform:
         # calculate how many tiles will be needed to create a platform in the given space
         if num_horizontal_tiles > 2:
             while num_horizontal_tiles > 1:
-                #draw the middle tiles
+                # draw the middle tiles
                 screen.blit(self.middleTile, (current_pos, self.y))
                 num_horizontal_tiles -= 1
                 current_pos += self.BLOCK_SIZE

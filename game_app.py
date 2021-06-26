@@ -1,4 +1,4 @@
-#import the libraries pygame and pygame_gui
+# import the libraries pygame and pygame_gui
 import pygame
 import pygame_gui
 # import specfic classes from specific files
@@ -10,16 +10,16 @@ from game_state import GameState
 class GameApp:
 
     def __init__(self):
-        #intialise pygame#
+        # intialise pygame#
         pygame.init()
 
-        #initialise the window#
+        # initialise the window#
         self.window_surface = pygame.display.set_mode((800, 600))
         self.ui_manager = pygame_gui.UIManager((800, 600))
         self.clock = pygame.time.Clock()
         self.running = True
 
-        #initialise the game states#
+        # initialise the game states#
         self.states = {'main_menu': MainMenuState(self.window_surface, self.ui_manager),
                        'settings': SettingsState(self.window_surface, self.ui_manager),
                        'game': GameState(self.window_surface, self.clock)}
@@ -31,7 +31,7 @@ class GameApp:
 
     def run(self):
         while self.running:
-            time_delta = self.clock.tick(90)/1000.0
+            time_delta = self.clock.tick(90) / 1000.0
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:

@@ -1,4 +1,4 @@
-#import the library pygame
+# import the library pygame
 import pygame
 
 from pygame_gui.elements import UIButton
