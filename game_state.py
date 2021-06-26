@@ -72,7 +72,7 @@ class GameState:
         self.skeleton1.draw(self.window_surface)
         # draws the platform1
         self.platform1.draw(self.window_surface)
-        # calls the handle_floor method to check wether the sprite should me falling on the skeleton1 by passing in
+        # calls the handle_floor method to check whether the sprite should me falling on the skeleton1 by passing in
         # skeleton1 and platform1
         self.handle_floor(self.skeleton1, self.platform1)
 

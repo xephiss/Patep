@@ -10,7 +10,7 @@ from game_state import GameState
 class GameApp:
 
     def __init__(self):
-        # intialise pygame#
+        # initialise pygame#
         pygame.init()
 
         # initialise the window#

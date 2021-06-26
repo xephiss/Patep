@@ -12,7 +12,7 @@ class SpriteSheet(object):
 
     # Load a specific image from a specific rectangle
 
-    def image_at(self, rectangle, colorkey=None):
+    def image_at(self, rectangle, colorkey = None):
         # Load image from x,y,x+offset,y+offset#
         rect = pygame.Rect(rectangle)
         image = pygame.Surface(rect.size).convert()

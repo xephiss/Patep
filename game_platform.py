@@ -7,7 +7,7 @@ class Platform:
     BLOCK_SIZE = 64
 
     def __init__(self, x, y, width, height):
-        # initialse the platform tiles and the width,height, x and y of the tiles as well as the number of tiles
+        # initialise the platform tiles and the width,height, x and y of the tiles as well as the number of tiles
         self.platformTiles = ["13.png", "14.png", "15.png"]
         self.x = x
         self.y = y
