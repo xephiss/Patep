@@ -15,3 +15,5 @@ class ViewPort:
         # creates offset based on player position on the map
         self.offsetX = x - (self.window_surface.get_width() / 2)
         self.offsetY = y - (self.window_surface.get_height() / 2)
+
+        #move the background drawing into the game map

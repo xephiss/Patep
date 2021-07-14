@@ -72,10 +72,10 @@ class GameState:
         self.skeleton1.update(time_delta)
         # applies the method fall to skeleton1 causing it to "fall"
         self.skeleton1.gravity.fall()
-        # draws the skeleton1
-        self.skeleton1.draw(self.view_port)
         # draws the map
         self.map.draw(self.view_port)
+        # draws the skeleton1
+        self.skeleton1.draw(self.view_port)
         # calls the handle_floor method on the map to check if the skeleton should be falling
         self.map.handle_floor(self.skeleton1)
         self.view_port.centre_view_port(self.skeleton1.x,self.skeleton1.y)
