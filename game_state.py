@@ -23,18 +23,19 @@ class GameState:
         self.instructions_text = None
         self.instructions_text_pos_rect = None
 
+        self.background_IMG = pygame.image.load("tiles/png/BG/BG - Copy.png").convert()
+
+
     def start(self):
 
         self.skeleton1.set_position(110, 200)
-        # skeleton1.walkLeft()
-        # causes skeleton1 to walk right
         self.skeleton1.walk_right()
         # applies gravity to skeleton1 by calling the gravity class
         self.skeleton1.gravity.fall()
 
+
         self.transition_target = None
         self.background_surf = pygame.Surface((800, 600))
-        self.background_surf.fill((0, 0, 0))
 
         self.title_text = self.title_font.render('The Game', True, (255, 255, 255))
         self.title_pos_rect = self.title_text.get_rect()
@@ -56,6 +57,10 @@ class GameState:
     def handle_events(self, event):
         if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
             self.transition_target = 'main_menu'
+        #if event.type == pygame.KEYDOWN and event.key == pygame.K_LEFT:
+         #   self.skeleton1.walk_left()
+        #if event.type == pygame.KEYDOWN and event.key == pygame.K_RIGHT:
+         #   self.skeleton1.walk_right()
 
     def update(self, time_delta):
         # clear the window to the background surface
@@ -64,7 +69,7 @@ class GameState:
         self.window_surface.blit(self.title_text, self.title_pos_rect)
         # stick the instructions below
         self.window_surface.blit(self.instructions_text, self.instructions_text_pos_rect)
-
+        self.window_surface.blit(self.background_IMG, [0, 0])
         self.skeleton1.update(time_delta)
         # applies the method fall to skeleton1 causing it to "fall"
         self.skeleton1.gravity.fall()
@@ -72,6 +77,7 @@ class GameState:
         self.skeleton1.draw(self.window_surface)
         # draws the platform1
         self.platform1.draw(self.window_surface)
+        self.platform2.draw(self.window_surface)
         # calls the handle_floor method to check whether the sprite should me falling on the skeleton1 by passing in
         # skeleton1 and platform1
         self.handle_floor(self.skeleton1, self.platform1)

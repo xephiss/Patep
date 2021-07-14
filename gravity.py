@@ -10,7 +10,7 @@ class Gravity:
         self.object.y = self.object.y + (self.object.velocityY * time_delta)
 
     def fall(self):
-        # start the object falling ##
+        # start the object falling
         self.object.accelerationY = 500
 
     def stop_falling(self):
