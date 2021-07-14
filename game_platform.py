@@ -28,13 +28,12 @@ class Platform:
         return pygame.transform.scale(surface, (self.BLOCK_SIZE, self.BLOCK_SIZE)).convert()
 
     def draw(self, screen):
-        # set the current position
-        current_pos = self.x
+        current_pos = self.x    # set the current position
         num_horizontal_tiles = self.numHorizontalTiles
-        # draw the left tile on the screen
-        screen.blit(self.leftTile, (current_pos, self.y))
-        # change the current pos
-        current_pos += self.BLOCK_SIZE
+
+        screen.blit(self.leftTile, (current_pos, self.y))   # draw the left tile on the screen
+
+        current_pos += self.BLOCK_SIZE  # change the current position to the new position
         # calculate how many tiles will be needed to create a platform in the given space
         if num_horizontal_tiles > 2:
             while num_horizontal_tiles > 1:
@@ -42,5 +41,4 @@ class Platform:
                 screen.blit(self.middleTile, (current_pos, self.y))
                 num_horizontal_tiles -= 1
                 current_pos += self.BLOCK_SIZE
-        # draw the right tile
-        screen.blit(self.rightTile, (current_pos, self.y))
+        screen.blit(self.rightTile, (current_pos, self.y))  # draw the right tile

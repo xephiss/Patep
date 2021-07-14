@@ -1,7 +1,7 @@
 
 class Gravity:
     def __init__(self, object):
-        # intialise the object that has been passed in
+        # initialise the object that has been passed in
         self.object = object
 
     def update_velocity_y(self, time_delta):
@@ -14,6 +14,6 @@ class Gravity:
         self.object.accelerationY = 500
 
     def stop_falling(self):
-        #stops the object from falling#
+        #stops the object from falling
         self.object.accelerationY = 0
         self.object.velocityY = 0

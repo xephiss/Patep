@@ -1,13 +1,14 @@
 # import the library python and the files skeleton and game_platform
 import pygame
 import skeleton
+import game_map
 import game_platform
 
 
 class GameState:
     def __init__(self, window_surface, clock):
         # initialise the skeleton and the platform
-        self.platform1 = game_platform.Platform(100, 320, 256, 64)
+        self.map = game_map.GameMap()
         self.skeleton1 = skeleton.Skeleton()
 
         self.clock = clock
@@ -28,9 +29,7 @@ class GameState:
     def start(self):
 
         self.skeleton1.set_position(110, 200)
-        #self.skeleton1.walk_right()
-        # applies gravity to skeleton1 by calling the gravity class
-        self.skeleton1.gravity.fall()
+        self.skeleton1.gravity.fall()   # applies gravity to skeleton1 by calling the gravity class
 
         self.transition_target = None
         self.background_surf = pygame.Surface((800, 600))
@@ -59,6 +58,8 @@ class GameState:
             self.skeleton1.walk_left()
         if event.type == pygame.KEYDOWN and event.key == pygame.K_RIGHT:
             self.skeleton1.walk_right()
+        if event.type == pygame.KEYDOWN and event.key == pygame.K_UP:
+            self.skeleton1.jump()
 
     def update(self, time_delta):
         # clear the window to the background surface
@@ -73,19 +74,10 @@ class GameState:
         self.skeleton1.gravity.fall()
         # draws the skeleton1
         self.skeleton1.draw(self.window_surface)
-        # draws the platform1
-        self.platform1.draw(self.window_surface)
-        # calls the handle_floor method to check whether the sprite should me falling on the skeleton1 by passing in
-        # skeleton1 and platform1
-        self.handle_floor(self.skeleton1, self.platform1)
+        # draws the map
+        self.map.draw(self.window_surface)
+        # calls the handle_floor method on the map to check if the skeleton should be falling
+        self.map.handle_floor(self.skeleton1)
 
-    def handle_floor(self, sprite_that_falls, platform):
-        # check wether the sprite_that_falls that is passed into the method should be falling or not.
-        # set co-ordinate for bottom of sprite
-        bottom_of_sprite = sprite_that_falls.y + sprite_that_falls.height
-        top_of_platform = platform.y + 2
-        if platform.x <= sprite_that_falls.x <= platform.x + platform.width:
-            # checks if sprite is colliding with the platform
-            if top_of_platform > bottom_of_sprite > top_of_platform - 3:
-                # applies the method stop_falling to the sprite_that_falls
-                sprite_that_falls.gravity.stop_falling()
+
+

@@ -71,8 +71,15 @@ class Skeleton:
         self.direction = +1
 
     def update(self, time_delta):
+        # updates the frames of the animation
         self.timeSinceFrame += time_delta
         if self.timeSinceFrame >= self.skeletonWalkingSpeed:
             self.next_frame()
             self.timeSinceFrame = 0
+        # handle falling
         self.gravity.update_velocity_y(time_delta)
+
+    def jump(self):
+        # makes the skeleton jump
+        self.velocityY = - 200
+
