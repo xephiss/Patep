@@ -6,7 +6,7 @@ import game_platform
 
 class GameState:
     def __init__(self, window_surface, clock):
-        # intialise the skeleton and the platform
+        # initialise the skeleton and the platform
         self.platform1 = game_platform.Platform(100, 320, 256, 64)
         self.skeleton1 = skeleton.Skeleton()
 
@@ -25,14 +25,12 @@ class GameState:
 
         self.background_IMG = pygame.image.load("tiles/png/BG/BG - Copy.png").convert()
 
-
     def start(self):
 
         self.skeleton1.set_position(110, 200)
-        self.skeleton1.walk_right()
+        #self.skeleton1.walk_right()
         # applies gravity to skeleton1 by calling the gravity class
         self.skeleton1.gravity.fall()
-
 
         self.transition_target = None
         self.background_surf = pygame.Surface((800, 600))
@@ -57,10 +55,10 @@ class GameState:
     def handle_events(self, event):
         if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
             self.transition_target = 'main_menu'
-        #if event.type == pygame.KEYDOWN and event.key == pygame.K_LEFT:
-         #   self.skeleton1.walk_left()
-        #if event.type == pygame.KEYDOWN and event.key == pygame.K_RIGHT:
-         #   self.skeleton1.walk_right()
+        if event.type == pygame.KEYDOWN and event.key == pygame.K_LEFT:
+            self.skeleton1.walk_left()
+        if event.type == pygame.KEYDOWN and event.key == pygame.K_RIGHT:
+            self.skeleton1.walk_right()
 
     def update(self, time_delta):
         # clear the window to the background surface

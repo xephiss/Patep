@@ -7,7 +7,7 @@ from gravity import Gravity
 
 class Skeleton:
     def __init__(self):
-        self.direction = 1
+        self.direction = 0
         ss = spritesheet.SpriteSheet('skeleton_sheet.png')
         self.standing = ss.image_at((14, 143, 35, 48), -1)
         self.timeSinceFrame = 0
@@ -68,6 +68,7 @@ class Skeleton:
     def walk_right(self):
         # make the skeleton walk right
         self.currentAnimation = self.walkingRight
+        self.direction = +1
 
     def update(self, time_delta):
         self.timeSinceFrame += time_delta
