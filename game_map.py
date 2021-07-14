@@ -10,10 +10,12 @@ class GameMap:
                           Platform(1000, 620, 256, 64)]
 
     def draw(self,window_surface):
+        # iterate through the list of platforms and draw them
         for platform in self.platforms:
             platform.draw(window_surface)
 
     def handle_floor(self,sprite_that_falls):
+        # iterate through the list of platforms and call handle_platform_floor on each platform
         for platform in self.platforms:
             self.handle_platform_floor(sprite_that_falls, platform)
 

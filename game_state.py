@@ -2,6 +2,7 @@
 import pygame
 import skeleton
 import game_map
+import view_port
 import game_platform
 
 
@@ -13,8 +14,7 @@ class GameState:
 
         self.clock = clock
         self.transition_target = None
-        self.window_surface = window_surface
-
+        self.view_port = view_port.ViewPort(window_surface)
         self.title_font = pygame.font.Font(None, 64)
         self.instructions_font = pygame.font.Font(None, 32)
 
@@ -63,21 +63,21 @@ class GameState:
 
     def update(self, time_delta):
         # clear the window to the background surface
-        self.window_surface.blit(self.background_surf, (0, 0))
+        self.view_port.blit(self.background_surf, (0, 0))
         # stick the title at the top
-        self.window_surface.blit(self.title_text, self.title_pos_rect)
+        self.view_port.blit(self.title_text, self.title_pos_rect)
         # stick the instructions below
-        self.window_surface.blit(self.instructions_text, self.instructions_text_pos_rect)
-        self.window_surface.blit(self.background_IMG, [0, 0])
+        self.view_port.blit(self.instructions_text, self.instructions_text_pos_rect)
+        self.view_port.blit(self.background_IMG, [0, 0])
         self.skeleton1.update(time_delta)
         # applies the method fall to skeleton1 causing it to "fall"
         self.skeleton1.gravity.fall()
         # draws the skeleton1
-        self.skeleton1.draw(self.window_surface)
+        self.skeleton1.draw(self.view_port)
         # draws the map
-        self.map.draw(self.window_surface)
+        self.map.draw(self.view_port)
         # calls the handle_floor method on the map to check if the skeleton should be falling
         self.map.handle_floor(self.skeleton1)
-
+        self.view_port.centre_view_port(self.skeleton1.x,self.skeleton1.y)
 
 
