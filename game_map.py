@@ -1,6 +1,6 @@
 import pygame
 from game_platform import Platform
-
+import view_port
 
 class GameMap:
     def __init__(self):
@@ -9,8 +9,27 @@ class GameMap:
                           Platform(700, 420, 256, 64),
                           Platform(1000, 620, 256, 64)]
 
-    def draw(self,window_surface):
-        #draw background ehre  0,0 then 0+width, width+width
+        self.background_IMG = pygame.image.load("tiles/png/BG/BG - Copy.png").convert()
+        self.background_middle_x = 0
+        self.background_left_x = self.background_middle_x - 1000
+        self.background_right_x = self.background_middle_x + 1000
+
+    def draw(self,window_surface, sprite_that_falls):
+        self.view_port = view_port.ViewPort(window_surface)
+
+
+        if sprite_that_falls.x >= self.background_right_x:
+            self.background_left_x = self.background_middle_x
+            self.background_middle_x = self.background_right_x
+            self.background_right_x = self.background_right_x + 1000
+        elif sprite_that_falls.x <= self.background_right_x:
+            self.background_right_x = self.background_middle_x
+            self.background_middle_x = self.background_left_x
+            self.background_left_x = self.background_left_x - 1000
+        self.view_port.blit(self.background_IMG, [self.background_right_x, 0])
+        self.view_port.blit(self.background_IMG, [self.background_middle_x, 0])
+        self.view_port.blit(self.background_IMG, [self.background_left_x, 0])
+
         # iterate through the list of platforms and draw them
         for platform in self.platforms:
             platform.draw(window_surface)
