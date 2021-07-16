@@ -15,13 +15,13 @@ class GameMap:
         self.background_right_x = self.background_middle_x + 1000
 
     def draw(self,window_surface, sprite_that_falls):
-        self.view_port = view_port.ViewPort(window_surface)
-
-
+        self.view_port = view_port.ViewPort(window_surface) # creates the viewport
+        # checks if the x coordinate of the sprite is within the right background image panel
         if sprite_that_falls.x >= self.background_right_x:
             self.background_left_x = self.background_middle_x
             self.background_middle_x = self.background_right_x
             self.background_right_x = self.background_right_x + 1000
+
         elif sprite_that_falls.x <= self.background_right_x:
             self.background_right_x = self.background_middle_x
             self.background_middle_x = self.background_left_x

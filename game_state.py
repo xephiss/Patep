@@ -15,14 +15,14 @@ class GameState:
         self.clock = clock
         self.transition_target = None
         self.view_port = view_port.ViewPort(window_surface)
-        self.title_font = pygame.font.Font(None, 64)
-        self.instructions_font = pygame.font.Font(None, 32)
+        #self.title_font = pygame.font.Font(None, 64)
+        #self.instructions_font = pygame.font.Font(None, 32)
 
         self.background_surf = None
-        self.title_text = None
-        self.title_pos_rect = None
-        self.instructions_text = None
-        self.instructions_text_pos_rect = None
+        #self.title_text = None
+        #self.title_pos_rect = None
+        #self.instructions_text = None
+        #self.instructions_text_pos_rect = None
 
         #self.background_IMG = pygame.image.load("tiles/png/BG/BG - Copy.png").convert()
 
@@ -63,7 +63,7 @@ class GameState:
 
     def update(self, time_delta):
         # clear the window to the background surface
-        self.view_port.blit(self.background_surf, (0, 0))
+        #self.view_port.blit(self.background_surf, (0, 0))
         # stick the title at the top
         #self.view_port.blit(self.title_text, self.title_pos_rect)
         # stick the instructions below
