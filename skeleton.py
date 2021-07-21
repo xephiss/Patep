@@ -1,7 +1,7 @@
 # import the file spritesheet
 import spritesheet
 
-## import the class Gravity from the file gravity##
+# import the class Gravity from the file gravity
 from gravity import Gravity
 
 
@@ -11,9 +11,10 @@ class Skeleton:
         ss = spritesheet.SpriteSheet('skeleton_sheet.png')
         self.standing = ss.image_at((14, 143, 35, 48), -1)
         self.timeSinceFrame = 0
-        self.skeletonWalkingSpeed = 0.125
+        self.skeletonWalkingSpeed = 20
+        self.timeBetweenSteps = 1/self.skeletonWalkingSpeed
         self.walkingLeft = ss.images_at([
-            # (15 , 78, 35, 50),#
+            # (15 , 78, 35, 50)
             (79, 78, 35, 50),
             (143, 78, 35, 50),
             (207, 78, 35, 50),
@@ -24,7 +25,7 @@ class Skeleton:
             (527, 78, 35, 50),
         ], -1)
         self.walkingRight = ss.images_at([
-            # (15 , 78, 35, 50),#
+            # (15 , 78, 35, 50)
             (79, 206, 35, 50),
             (143, 206, 35, 50),
             (207, 206, 35, 50),
@@ -73,7 +74,7 @@ class Skeleton:
     def update(self, time_delta):
         # updates the frames of the animation
         self.timeSinceFrame += time_delta
-        if self.timeSinceFrame >= self.skeletonWalkingSpeed:
+        if self.timeSinceFrame >= self.timeBetweenSteps:
             self.next_frame()
             self.timeSinceFrame = 0
         # handle falling
@@ -81,5 +82,5 @@ class Skeleton:
 
     def jump(self):
         # makes the skeleton jump
-        self.velocityY = - 200
+        self.velocityY = - 250
 

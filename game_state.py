@@ -15,6 +15,7 @@ class GameState:
         self.clock = clock
         self.transition_target = None
         self.view_port = view_port.ViewPort(window_surface)
+
         #self.title_font = pygame.font.Font(None, 64)
         #self.instructions_font = pygame.font.Font(None, 32)
 
@@ -28,7 +29,7 @@ class GameState:
 
     def start(self):
 
-        self.skeleton1.set_position(110, 200)
+        self.skeleton1.set_position(110, 300)
         self.skeleton1.gravity.fall()   # applies gravity to skeleton1 by calling the gravity class
 
         self.transition_target = None
@@ -72,12 +73,14 @@ class GameState:
         self.skeleton1.update(time_delta)
         # applies the method fall to skeleton1 causing it to "fall"
         self.skeleton1.gravity.fall()
-        # draws the map
-        self.map.draw(self.view_port,self.skeleton1)
-        # draws the skeleton1
-        self.skeleton1.draw(self.view_port)
         # calls the handle_floor method on the map to check if the skeleton should be falling
         self.map.handle_floor(self.skeleton1)
-        self.view_port.centre_view_port(self.skeleton1.x,self.skeleton1.y)
+        #
+        self.view_port.centre_view_port(self.skeleton1.x, self.skeleton1.y)
+        # draws the map
+        self.map.draw(self.view_port)
+        # draws the skeleton1
+        self.skeleton1.draw(self.view_port)
+
 
 
