@@ -1,18 +1,35 @@
 # import the file spritesheet
 import spritesheet
+import sprite_collection
 
 # import the class Gravity from the file gravity
 from gravity import Gravity
 
 
-class Skeleton:
+class Player:
     def __init__(self):
         self.direction = 0
+
+        self.timeSinceFrame = 0
+        self.playerWalkingSpeed = 20
+        self.timeBetweenSteps = 1/self.playerWalkingSpeed
+
+        # self.set_sprite_skeleton()
+        self.set_sprite_dino()
+
+        self.currentFrame = 0
+        self.currentAnimation = [self.standing]
+        self.x = 0
+        self.y = 0
+        self.velocityY = 0
+        self.accelerationY = 0
+        self.width = 35
+        self.height = 50
+        self.gravity = Gravity(self)
+
+    def set_sprite_skeleton(self):
         ss = spritesheet.SpriteSheet('skeleton_sheet.png')
         self.standing = ss.image_at((14, 143, 35, 48), -1)
-        self.timeSinceFrame = 0
-        self.skeletonWalkingSpeed = 20
-        self.timeBetweenSteps = 1/self.skeletonWalkingSpeed
         self.walkingLeft = ss.images_at([
             # (15 , 78, 35, 50)
             (79, 78, 35, 50),
@@ -35,15 +52,12 @@ class Skeleton:
             (463, 206, 35, 50),
             (527, 206, 35, 50),
         ], -1)
-        self.currentFrame = 0
-        self.currentAnimation = [self.standing]
-        self.x = 0
-        self.y = 0
-        self.velocityY = 0
-        self.accelerationY = 0
-        self.width = 35
-        self.height = 50
-        self.gravity = Gravity(self)
+
+    def set_sprite_dino(self):
+        collection = sprite_collection.SpriteCollection("green_dino_sprite", 85, 59)
+        self.standing = collection.single_image("Idle (1).png", -1)
+        self.walkingRight = [self.standing]
+        self.walkingLeft = [self.standing]
 
     def draw(self, screen):
         # draw the animation to the screen

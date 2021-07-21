@@ -1,6 +1,6 @@
 # import the library python and the files skeleton and game_platform
 import pygame
-import skeleton
+import player
 import game_map
 import view_port
 import game_platform
@@ -10,7 +10,7 @@ class GameState:
     def __init__(self, window_surface, clock):
         # initialise the skeleton and the platform
         self.map = game_map.GameMap()
-        self.skeleton1 = skeleton.Skeleton()
+        self.skeleton1 = player.Player()
 
         self.clock = clock
         self.transition_target = None
