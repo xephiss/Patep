@@ -20,13 +20,14 @@ class SettingsState:
         self.back_button = None
         self.button1 = None
         self.button2 = None
+        self.background_image = pygame.image.load("tiles/png/BG/BG - Copy.png")
 
     def start(self):
         # draws the background and the title for the settings menu
         self.transition_target = None
         self.background_surf = pygame.Surface((800, 600))
         self.background_surf.fill((0, 0, 0))
-        self.title_text = self.title_font.render('Settings', True, (255, 255, 255))
+        self.title_text = self.title_font.render('Settings', True, (0, 0, 0))
         self.title_pos_rect = self.title_text.get_rect()
         self.title_pos_rect.center = (400, 50)
         # creates buttons
@@ -62,3 +63,4 @@ class SettingsState:
         self.window_surface.blit(self.title_text, self.title_pos_rect)
 
         self.ui_manager.draw_ui(self.window_surface)  # Draw the UI Bits
+        self.background_surf.blit(self.background_image, [0, 0])

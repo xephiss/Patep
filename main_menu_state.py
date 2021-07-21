@@ -11,7 +11,7 @@ class MainMenuState:
         self.transition_target = None
         self.window_surface = window_surface
         self.ui_manager = ui_manager
-        self.title_font = pygame.font.Font(None, 64)
+        self.title_font = pygame.font.Font(None, 128)
 
         self.background_surf = None
         self.title_text = None
@@ -20,14 +20,14 @@ class MainMenuState:
         self.start_game_button = None
         self.settings_button = None
         self.quit_button = None
+        self.background_image = pygame.image.load("tiles/png/BG/BG - Copy.png")
 
     def start(self):
         self.transition_target = None
 
         # draw background and title for main menu
         self.background_surf = pygame.Surface((800, 600))
-        self.background_surf.fill((0, 0, 0))
-        self.title_text = self.title_font.render('Main Menu', True, (255, 255, 255))
+        self.title_text = self.title_font.render('My Game', True, (0, 0, 0))
         self.title_pos_rect = self.title_text.get_rect()
         self.title_pos_rect.center = (400, 50)
 
@@ -38,9 +38,13 @@ class MainMenuState:
         self.settings_button = UIButton(pygame.Rect((325, 280), (150, 30)),
                                         'Settings',
                                         self.ui_manager)
-        self.quit_button = UIButton(pygame.Rect((325, 320), (150, 30)),
+        self.tutorial_button = UIButton(pygame.Rect((325, 320), (150, 30)),
+                                        'Tutorial',
+                                        self.ui_manager)
+        self.quit_button = UIButton(pygame.Rect((325, 360), (150, 30)),
                                     'Quit',
                                     self.ui_manager)
+
 
     def stop(self):
         # stops the main menu state
@@ -52,6 +56,8 @@ class MainMenuState:
         self.start_game_button = None
         self.settings_button.kill()
         self.settings_button = None
+        self.tutorial_button.kill()
+        self.tutorial_button = None
         self.quit_button.kill()
         self.quit_button = None
 
@@ -64,6 +70,9 @@ class MainMenuState:
             # enters settings state
             elif event.ui_element == self.settings_button:
                 self.transition_target = 'settings'
+            #enters tutorial state
+            elif event.ui_element == self.tutorial_button:
+                    self.transition_target = 'tutorial'
             # quits the game
             elif event.ui_element == self.quit_button:
                 self.transition_target = 'quit'
@@ -72,3 +81,4 @@ class MainMenuState:
         self.window_surface.blit(self.background_surf, (0, 0))  # clears the window to the background surface
         self.window_surface.blit(self.title_text, self.title_pos_rect)  # positions the title at the top
         self.ui_manager.draw_ui(self.window_surface)  # Draw the UI buttons
+        self.background_surf.blit(self.background_image, [0, 0])
