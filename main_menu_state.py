@@ -20,6 +20,7 @@ class MainMenuState:
         self.start_game_button = None
         self.settings_button = None
         self.quit_button = None
+        self.tutorial_button = None
         self.background_image = pygame.image.load("tiles/png/BG/BG - Copy.png")
 
     def start(self):
@@ -70,9 +71,9 @@ class MainMenuState:
             # enters settings state
             elif event.ui_element == self.settings_button:
                 self.transition_target = 'settings'
-            #enters tutorial state
+            # enters tutorial state
             elif event.ui_element == self.tutorial_button:
-                    self.transition_target = 'tutorial'
+                self.transition_target = 'tutorial'
             # quits the game
             elif event.ui_element == self.quit_button:
                 self.transition_target = 'quit'
@@ -81,4 +82,4 @@ class MainMenuState:
         self.window_surface.blit(self.background_surf, (0, 0))  # clears the window to the background surface
         self.window_surface.blit(self.title_text, self.title_pos_rect)  # positions the title at the top
         self.ui_manager.draw_ui(self.window_surface)  # Draw the UI buttons
-        self.background_surf.blit(self.background_image, [0, 0])
+        self.background_surf.blit(self.background_image, [0, 0])# draws the background image
