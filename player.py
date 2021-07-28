@@ -14,8 +14,8 @@ class Player:
         self.playerWalkingSpeed = 20
         self.timeBetweenSteps = 1/self.playerWalkingSpeed
 
-        self.set_sprite_skeleton()
-        #self.set_sprite_dino()
+        #self.set_sprite_skeleton()
+        self.set_sprite_dino()
 
         self.currentFrame = 0
         self.currentAnimation = [self.standing]
@@ -26,9 +26,6 @@ class Player:
         self.width = 35
         self.height = 50
         self.gravity = Gravity(self)
-        self.standing = None
-        self.walkingLeft = None
-        self.walkingRight = None
 
     def set_sprite_skeleton(self):
         ss = spritesheet.SpriteSheet('skeleton_sheet.png')
@@ -70,12 +67,10 @@ class Player:
             (1034, 218, 84, 91),
         ], -1)
         self.walkingLeft = [self.walkingRight[0]]
-        self.standing = ss.image_at([(10, 218, 83, 91)],-1)
+        self.standing = ss.image_at((10, 218, 83, 91),-1)
 
     def draw(self, screen):
         # draw the animation to the screen
-        print(self.currentFrame)
-        print(len(self.currentAnimation))
         screen.blit(self.currentAnimation[self.currentFrame], (self.x, self.y))
 
     def walk_left(self):
