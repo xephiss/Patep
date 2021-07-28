@@ -1,6 +1,6 @@
 # import the file spritesheet
 import spritesheet
-import sprite_collection
+import pygame
 
 # import the class Gravity from the file gravity
 from gravity import Gravity
@@ -30,18 +30,7 @@ class Player:
     def set_sprite_skeleton(self):
         ss = spritesheet.SpriteSheet('skeleton_sheet.png')
         self.standing = ss.image_at((14, 143, 35, 48), -1)
-        self.walkingLeft = ss.images_at([
-            # (15 , 78, 35, 50)
-            (79, 78, 35, 50),
-            (143, 78, 35, 50),
-            (207, 78, 35, 50),
-            (271, 78, 35, 50),
-            (335, 78, 35, 50),
-            (399, 78, 35, 50),
-            (463, 78, 35, 50),
-            (527, 78, 35, 50),
-        ], -1)
-        self.walkingRight = ss.images_at([
+        self.walking = ss.images_at([
             # (15 , 78, 35, 50)
             (79, 206, 35, 50),
             (143, 206, 35, 50),
@@ -51,11 +40,11 @@ class Player:
             (399, 206, 35, 50),
             (463, 206, 35, 50),
             (527, 206, 35, 50),
-        ], -1)
+        ],-1)
 
     def set_sprite_dino(self):
         ss = spritesheet.SpriteSheet('green_dino_trimmed.png')
-        self.walkingRight = ss.images_at([
+        self.walking = ss.images_at([
             (10, 218, 83, 91),
             (132, 218, 83, 91),
             (261, 218, 82, 91),
@@ -65,18 +54,19 @@ class Player:
             (781, 218, 89, 91),
             (907, 218, 84, 91),
             (1034, 218, 84, 91),
-        ], -1)
-        self.walkingLeft = [self.walkingRight[0]]
-        self.standing = ss.image_at((10, 218, 83, 91),-1)
+        ])
+        self.standing = ss.image_at((10, 218, 83, 91))
 
     def draw(self, screen):
         # draw the animation to the screen
-        screen.blit(self.currentAnimation[self.currentFrame], (self.x, self.y))
+        frame = self.currentAnimation[self.currentFrame]
+        if self.direction == -1:
+            frame = pygame.transform.flip(frame, True, False)
+        screen.blit(frame, (self.x, self.y))
 
     def walk_left(self):
         # make the skeleton walk left
         self.direction = -1
-        self.currentAnimation = self.walkingLeft
 
     def set_position(self, x, y):
         # set the position of the skeleton
@@ -92,7 +82,7 @@ class Player:
 
     def walk_right(self):
         # make the skeleton walk right
-        self.currentAnimation = self.walkingRight
+        self.currentAnimation = self.walking
         self.direction = +1
 
     def update(self, time_delta):
@@ -100,7 +90,7 @@ class Player:
         self.timeSinceFrame += time_delta
         if self.timeSinceFrame >= self.timeBetweenSteps:
             self.next_frame()
-            self.timeSinceFrame = 0
+            self.timeSinceFrame -= self.timeBetweenSteps
         # handle falling
         self.gravity.update_velocity_y(time_delta)
 
