@@ -6,6 +6,7 @@ import pygame_gui
 from main_menu_state import MainMenuState
 from settings_state import SettingsState
 from game_state import GameState
+from tutorial_state import TutorialState
 
 
 class GameApp:
@@ -22,6 +23,7 @@ class GameApp:
         # initialise the game states
         self.states = {'main_menu': MainMenuState(self.window_surface, self.ui_manager),
                        'settings': SettingsState(self.window_surface, self.ui_manager),
+                       'tutorial': TutorialState(self.window_surface, self.ui_manager),
                        'game': GameState(self.window_surface, self.clock)}
 
         self.active_state = self.states['main_menu']  # start the app in the main menu
