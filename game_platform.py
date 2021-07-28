@@ -12,8 +12,8 @@ class Platform:
         self.x = x
         self.y = y
         self.height = height
-        self.numHorizontalTiles = math.ceil(width / 64)
-        self.width = (self.numHorizontalTiles + 0.6) * 64
+        self.numHorizontalTiles = math.ceil(width / self.BLOCK_SIZE)
+        self.width = (self.numHorizontalTiles + 0.6) * self.BLOCK_SIZE
         self.rightTile = self.load_tile(self.platformTiles[2])
         self.middleTile = self.load_tile(self.platformTiles[1])
         self.leftTile = self.load_tile(self.platformTiles[0])
