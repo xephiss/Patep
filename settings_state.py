@@ -7,13 +7,13 @@ import sprite_selection
 from pygame_gui.elements import UIButton
 from pygame_gui import UI_BUTTON_PRESSED
 
-
 class SettingsState:
-    def __init__(self, window_surface, ui_manager):
+    def __init__(self, window_surface, ui_manager, settings = {}):
         # initalises the variables that control the settings display
         self.transition_target = None
         self.window_surface = window_surface
         self.ui_manager = ui_manager
+        self.settings = settings
         self.title_font = pygame.font.Font(None, 64)
 
         self.background_surf = None
@@ -64,13 +64,14 @@ class SettingsState:
                 self.transition_target = 'main_menu'
         if event.type == pygame.MOUSEBUTTONDOWN:
             position = pygame.mouse.get_pos()
-            if 375 >= position[0] >= 325 and 260 <= position[1] >= 280:
+            if 300 <= position[0] <= 383 and 150 <= position[1] <= 241:
                 self.sprite = "green_dino"
                 print("green reached",self.sprite)
-            if 375 >= position[0] >= 325 and 220 <= position[1] >= 240:
+            if 400 <= position[0] <= 435 and 150 <= position[1] <= 198:
                 self.sprite = "skeleton"
                 print("skeleton", self.sprite)
-            sprite_selection.SpriteSelection.select_sprite(self,self.sprite)
+            # sprite_selection.SpriteSelection.select_sprite(self, self.sprite)
+            self.settings['selected_sprite'] = self.sprite
 
     def update(self, time_delta):
         self.window_surface.blit(self.background_surf, (0, 0))  # clears the window to the background surface

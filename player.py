@@ -5,17 +5,15 @@ import pygame
 # import the class Gravity from the file gravity
 from gravity import Gravity
 
-
 class Player:
-    def __init__(self):
+    def __init__(self, selected_sprite):
         self.direction = 0
 
         self.timeSinceFrame = 0
         self.playerWalkingSpeed = 20
         self.timeBetweenSteps = 1/self.playerWalkingSpeed
 
-        #self.set_sprite_skeleton()
-        #self.set_sprite_dino()
+        self.set_sprite(selected_sprite)
 
         self.currentFrame = 0
         self.x = 0
@@ -26,6 +24,12 @@ class Player:
         self.height = 50
         self.gravity = Gravity(self)
         self.currentAnimation = [self.standing]
+
+    def set_sprite(self, selected_sprite):
+        if selected_sprite == "skeleton":
+            self.set_sprite_skeleton()
+        elif selected_sprite == "green_dino":
+            self.set_sprite_dino()
 
     def set_sprite_skeleton(self):
         ss = spritesheet.SpriteSheet('skeleton_sheet.png')
