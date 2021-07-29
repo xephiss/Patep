@@ -15,10 +15,9 @@ class Player:
         self.timeBetweenSteps = 1/self.playerWalkingSpeed
 
         #self.set_sprite_skeleton()
-        self.set_sprite_dino()
+        #self.set_sprite_dino()
 
         self.currentFrame = 0
-        self.currentAnimation = [self.standing]
         self.x = 0
         self.y = 0
         self.velocityY = 0
@@ -26,6 +25,15 @@ class Player:
         self.width = 35
         self.height = 50
         self.gravity = Gravity(self)
+
+    def choose_sprite(self,sprite):
+        if sprite is not None:
+            if sprite == "skeleton":
+                self.set_sprite_skeleton()
+            if sprite == "green_dino":
+                self.set_sprite_dino()
+        else:
+            self.set_sprite_dino()
 
     def set_sprite_skeleton(self):
         ss = spritesheet.SpriteSheet('skeleton_sheet.png')
@@ -41,6 +49,7 @@ class Player:
             (463, 206, 35, 50),
             (527, 206, 35, 50),
         ],-1)
+        self.currentAnimation = [self.standing]
 
     def set_sprite_dino(self):
         ss = spritesheet.SpriteSheet('green_dino_trimmed.png')
@@ -56,6 +65,7 @@ class Player:
             (1034, 218, 84, 91),
         ])
         self.standing = ss.image_at((10, 218, 83, 91))
+        self.currentAnimation = [self.standing]
 
     def draw(self, screen):
         # draw the animation to the screen
