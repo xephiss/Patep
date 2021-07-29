@@ -10,7 +10,7 @@ class GameState:
     def __init__(self, window_surface, clock, settings):
         # initialise the skeleton and the platform
         self.map = game_map.GameMap()
-        self.player1 = player.Player()
+
 
         self.clock = clock
         self.transition_target = None
@@ -19,6 +19,7 @@ class GameState:
         self.background_surf = None
 
         self.settings = settings
+        self.player1 = player.Player(self.settings['selected_sprite'])
 
         #self.background_IMG = pygame.image.load("tiles/png/BG/BG - Copy.png").convert()
 
