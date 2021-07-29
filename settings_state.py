@@ -70,7 +70,7 @@ class SettingsState:
             if 375 >= position[0] >= 325 and 220 <= position[1] >= 240:
                 self.sprite = "skeleton"
                 print("skeleton", self.sprite)
-            sprite_selection.spriteSelection(self.sprite)
+            sprite_selection.SpriteSelection.select_sprite(self,self.sprite)
 
     def update(self, time_delta):
         self.window_surface.blit(self.background_surf, (0, 0))  # clears the window to the background surface

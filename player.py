@@ -25,6 +25,7 @@ class Player:
         self.width = 35
         self.height = 50
         self.gravity = Gravity(self)
+        self.currentAnimation = [self.standing]
 
     def set_sprite_skeleton(self):
         ss = spritesheet.SpriteSheet('skeleton_sheet.png')
@@ -40,7 +41,7 @@ class Player:
             (463, 206, 35, 50),
             (527, 206, 35, 50),
         ],-1)
-        self.currentAnimation = [self.standing]
+
 
     def set_sprite_dino(self):
         ss = spritesheet.SpriteSheet('green_dino_trimmed.png')
@@ -56,7 +57,7 @@ class Player:
             (1034, 218, 84, 91),
         ])
         self.standing = ss.image_at((10, 218, 83, 91))
-        self.currentAnimation = [self.standing]
+
 
     def draw(self, screen):
         # draw the animation to the screen
