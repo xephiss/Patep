@@ -7,7 +7,7 @@ import game_platform
 
 
 class GameState:
-    def __init__(self, window_surface, clock):
+    def __init__(self, window_surface, clock, settings):
         # initialise the skeleton and the platform
         self.map = game_map.GameMap()
         self.player1 = player.Player()
@@ -18,9 +18,12 @@ class GameState:
 
         self.background_surf = None
 
+        self.settings = settings
+
         #self.background_IMG = pygame.image.load("tiles/png/BG/BG - Copy.png").convert()
 
     def start(self):
+        self.player1 = player.Player(self.settings['selected_sprite'])
 
         self.player1.set_position(110, 300)
         self.player1.gravity.fall()   # applies gravity to skeleton1 by calling the gravity class
@@ -55,6 +58,3 @@ class GameState:
         self.map.draw(self.view_port)
         # draws the skeleton1
         self.player1.draw(self.view_port)
-
-
-

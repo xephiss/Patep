@@ -20,11 +20,16 @@ class GameApp:
         self.clock = pygame.time.Clock()
         self.running = True
 
+        # create a dict object to hold settings
+        self.settings = {
+            'selected_sprite': 'green_dino'
+        }
+
         # initialise the game states
         self.states = {'main_menu': MainMenuState(self.window_surface, self.ui_manager),
-                       'settings': SettingsState(self.window_surface, self.ui_manager),
+                       'settings': SettingsState(self.window_surface, self.ui_manager, self.settings),
                        'tutorial': TutorialState(self.window_surface, self.ui_manager),
-                       'game': GameState(self.window_surface, self.clock)}
+                       'game': GameState(self.window_surface, self.clock, self.settings)}
 
         self.active_state = self.states['main_menu']  # start the app in the main menu
 
@@ -64,4 +69,3 @@ class GameApp:
 if __name__ == '__main__':
     app = GameApp()
     app.run()
-
