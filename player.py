@@ -26,15 +26,6 @@ class Player:
         self.height = 50
         self.gravity = Gravity(self)
 
-    def choose_sprite(self,sprite):
-        if sprite is not None:
-            if sprite == "skeleton":
-                self.set_sprite_skeleton()
-            if sprite == "green_dino":
-                self.set_sprite_dino()
-        else:
-            self.set_sprite_dino()
-
     def set_sprite_skeleton(self):
         ss = spritesheet.SpriteSheet('skeleton_sheet.png')
         self.standing = ss.image_at((14, 143, 35, 48), -1)

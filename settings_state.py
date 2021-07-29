@@ -2,6 +2,7 @@
 import pygame
 import player
 import spritesheet
+import sprite_selection
 
 from pygame_gui.elements import UIButton
 from pygame_gui import UI_BUTTON_PRESSED
@@ -63,18 +64,18 @@ class SettingsState:
                 self.transition_target = 'main_menu'
         if event.type == pygame.MOUSEBUTTONDOWN:
             position = pygame.mouse.get_pos()
-            if 375 >= position[0] >=325 and 260 <= position[1] >= 280:
+            if 375 >= position[0] >= 325 and 260 <= position[1] >= 280:
                 self.sprite = "green_dino"
                 print("green reached",self.sprite)
             if 375 >= position[0] >= 325 and 220 <= position[1] >= 240:
                 self.sprite = "skeleton"
                 print("skeleton", self.sprite)
-            player.Player.choose_sprite(self.sprite)
+            sprite_selection.spriteSelection(self.sprite)
 
     def update(self, time_delta):
         self.window_surface.blit(self.background_surf, (0, 0))  # clears the window to the background surface
         self.window_surface.blit(self.title_text, self.title_pos_rect)  # positions the title at the top
         self.ui_manager.draw_ui(self.window_surface)  # Draw the UI buttons
         self.background_surf.blit(self.background_image, [0, 0])  # draws the background image
-        self.background_surf.blit(self.green_dino_selection, (300, 150))    #draw the green_dino sprite
+        self.background_surf.blit(self.green_dino_selection, (300, 150))    # draw the green_dino sprite
         self.background_surf.blit(self.skeleton_selection, (400, 150))      # draw the skeleton sprite
