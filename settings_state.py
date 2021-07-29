@@ -22,8 +22,8 @@ class SettingsState:
         self.button1 = None
         self.button2 = None
         self.background_image = pygame.image.load("tiles/png/BG/BG - Copy.png")
-        self.green_dino_selection = player.Player.set_sprite_dino()
-        self.skeleton_selection = player.Player.set_sprite_skeleton()
+        self.green_dino_selection = player.Player.set_sprite_dino(self)
+        self.skeleton_selection = player.Player.set_sprite_skeleton(self)
         self.sprite = None
 
     def start(self):
