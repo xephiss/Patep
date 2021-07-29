@@ -1,5 +1,6 @@
 # import the library pygame
 import pygame
+import player
 
 from pygame_gui.elements import UIButton
 from pygame_gui import UI_BUTTON_PRESSED
@@ -21,6 +22,9 @@ class SettingsState:
         self.button1 = None
         self.button2 = None
         self.background_image = pygame.image.load("tiles/png/BG/BG - Copy.png")
+        self.green_dino_selection = player.Player.set_sprite_dino()
+        self.skeleton_selection = player.Player.set_sprite_skeleton()
+        self.sprite = None
 
     def start(self):
         # draws the background and the title for the settings menu
@@ -33,10 +37,12 @@ class SettingsState:
         # creates buttons
         self.back_button = UIButton(pygame.Rect((550, 550), (200, 30)),
                                     'Back to menu', self.ui_manager)
-        self.button1 = UIButton(pygame.Rect((325, 240), (150, 30)),
-                                'button1', self.ui_manager)
-        self.button2 = UIButton(pygame.Rect((325, 280), (150, 30)),
-                                'button2', self.ui_manager)
+        #self.button1 = UIButton(pygame.Rect((325, 240), (150, 30)),
+                               # 'button1', self.ui_manager)
+        #self.button2 = UIButton(pygame.Rect((325, 280), (150, 30)),
+                               # 'button2', self.ui_manager)
+        self.background_surf.blit(self.green_dino_selection,(325,240))
+        self.background_surf.blit(self.skeleton_selection,(325,280))
 
     def stop(self):
         #stops the settings state
@@ -45,16 +51,22 @@ class SettingsState:
         self.title_pos_rect = None
         self.back_button.kill()
         self.back_button = None
-        self.button1.kill()
-        self.button1 = None
-        self.button2.kill()
-        self.button2 = None
+        #self.button1.kill()
+        #self.button1 = None
+        #self.button2.kill()
+        #self.button2 = None
 
     def handle_events(self, event):
         if event.type == pygame.USEREVENT and event.user_type == UI_BUTTON_PRESSED:
             # exit to main menu if the back button is pressed
             if event.ui_element == self.back_button:
                 self.transition_target = 'main_menu'
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            position = pygame.mouse.get_pos()
+            if 375 >= position >=325 and 260 <= position >= 280:
+                self.sprite = "green_dino"
+            if 375 >= position >= 325 and 220 <= position >= 240:
+                self.sprite = "skeleton"
 
     def update(self, time_delta):
         # clear the window to the background surface
