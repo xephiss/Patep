@@ -11,7 +11,6 @@ class GameState:
         # initialise the skeleton and the platform
         self.map = game_map.GameMap()
 
-
         self.clock = clock
         self.transition_target = None
         self.view_port = view_port.ViewPort(window_surface)
