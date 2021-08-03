@@ -2,7 +2,7 @@
 import pygame
 import pygame_gui
 
-# import specfic classes from specific files
+# import specific classes from specific files
 from main_menu_state import MainMenuState
 from settings_state import SettingsState
 from game_state import GameState

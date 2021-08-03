@@ -1,20 +1,33 @@
 import pygame
 from game_platform import Platform
+import random
 import view_port
 
 class GameMap:
     def __init__(self):
         self.platforms = [Platform(100, 420, 256, 64),
-                          Platform(400, 320, 256, 64),
-                          Platform(700, 520, 256, 64),
-                          Platform(1000, 720, 256, 64)]
+                          #Platform(400, 320, 256, 64),
+                          #Platform(700, 520, 256, 64),
+                          #Platform(1000, 720, 256, 64)
+                          ]
 
         self.background_IMG = pygame.image.load("tiles/png/BG/BG - Copy.png").convert()
         self.background_middle_x = 0
         self.background_left_x = self.background_middle_x - 1000
         self.background_right_x = self.background_middle_x + 1000
         self.height = 750
-        self.width = 3000
+        self.width = 6000
+        self.generate()
+
+    def generate(self):
+        for platform in self.platforms:
+            if platform.x + platform.width + 100 > self.width:
+                break
+            width = random.randint(2, 6)*64
+            y = random.randint(max(platform.y - 96, 0), min(platform.y + 256, self.height))
+            height_difference = y - platform.y + 96
+            spacing = random.randint(45, 45 + (int(height_difference/96) * 30))
+            self.platforms.append(Platform(platform.x + platform.width + spacing, y, width, 64))
 
     def draw(self, view_port):
         # checks if the left edge of the viewport is within the right background image panel

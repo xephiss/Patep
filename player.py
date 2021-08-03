@@ -102,5 +102,6 @@ class Player:
 
     def jump(self):
         # makes the skeleton jump
+        print(self.y)
         self.velocityY = - 250
 
