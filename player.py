@@ -72,11 +72,6 @@ class Player(Walking):
             frame = pygame.transform.flip(frame, True, False)
         screen.blit(frame, (self.x, self.y))
 
-    def set_position(self, x, y):
-        # set the position of the skeleton
-        self.x = x
-        self.y = y
-
     def next_frame(self):
         # finds the next frame in the animation sequence
         self.currentFrame = self.currentFrame + 1

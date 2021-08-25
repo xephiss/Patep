@@ -28,8 +28,9 @@ class GameState:
         self.player1 = player.Player(self.settings['selected_sprite'])
 
         self.player1.set_position(110, 300)
+        self.enemy1.set_position(180,300)
         self.player1.gravity.fall()   # applies gravity to skeleton1 by calling the gravity class
-
+        self.enemy1.walk_right()
         self.transition_target = None
         self.background_surf = pygame.Surface((800, 600))
 
@@ -57,6 +58,7 @@ class GameState:
         self.enemy1.gravity.fall()
         # calls the handle_floor method on the map to check if the skeleton should be falling
         self.map.handle_floor(self.player1)
+        self.map.handle_floor(self.enemy1)
         self.view_port.centre_view_port(self.player1.x, self.player1.y)
         # draws the map
         self.map.draw(self.view_port)
