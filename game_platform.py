@@ -39,9 +39,6 @@ class Platform:
             while num_horizontal_tiles > 1:
                 # draw the middle tiles
                 screen.blit(self.middleTile, (current_pos, self.y))
-                screen.draw_line(pygame.Color(0, 0, 0), (current_pos, self.y), (current_pos, self.y + self.height))
                 num_horizontal_tiles -= 1
                 current_pos += self.BLOCK_SIZE
         screen.blit(self.rightTile, (current_pos , self.y))  # draw the right tile
-        screen.draw_line(pygame.Color(0,0,0),(self.x,self.y),(self.x,self.y+self.height))
-        screen.draw_line(pygame.Color(0,0,0),(self.x+self.width,self.y),(self.x+self.width,self.y+self.height))

@@ -4,6 +4,7 @@ import player
 import game_map
 import view_port
 import game_platform
+import walking_enemy
 
 
 class GameState:
@@ -19,6 +20,7 @@ class GameState:
 
         self.settings = settings
         self.player1 = player.Player(self.settings['selected_sprite'])
+        self.enemy1 = walking_enemy.WalkingEnemy()
 
         #self.background_IMG = pygame.image.load("tiles/png/BG/BG - Copy.png").convert()
 
@@ -49,8 +51,10 @@ class GameState:
     def update(self, time_delta):
         # self.view_port.blit(self.background_IMG, [0, 0])
         self.player1.update(time_delta)
+        self.enemy1.update(time_delta)
         # applies the method fall to skeleton1 causing it to "fall"
         self.player1.gravity.fall()
+        self.enemy1.gravity.fall()
         # calls the handle_floor method on the map to check if the skeleton should be falling
         self.map.handle_floor(self.player1)
         self.view_port.centre_view_port(self.player1.x, self.player1.y)
@@ -58,3 +62,4 @@ class GameState:
         self.map.draw(self.view_port)
         # draws the skeleton1
         self.player1.draw(self.view_port)
+        self.enemy1.draw(self.view_port)
