@@ -66,9 +66,9 @@ class GameMap:
         # set co-ordinate for bottom of sprite
         bottom_of_sprite = sprite_that_falls.y + sprite_that_falls.height
         top_of_platform = platform.y + 2
-        if platform.x <= sprite_that_falls.x <= platform.x + platform.width:
+        if platform.x <= sprite_that_falls.right_edge() and sprite_that_falls.left_edge() <= platform.x + platform.width:
             # checks if sprite is colliding with the platform
             if top_of_platform + 5 > bottom_of_sprite > top_of_platform - 3:
                 # applies the method stop_falling to the sprite_that_falls
                 sprite_that_falls.gravity.stop_falling()
-                sprite_that_falls.y = top_of_platform - sprite_that_falls.height - 1    # ensures the sprite lands on the platform
+                sprite_that_falls.y = top_of_platform - sprite_that_falls.height - 1   # ensures the sprite lands on the platform

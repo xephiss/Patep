@@ -45,6 +45,8 @@ class Player:
         ],-1)
         self.width = 35
         self.height = 50
+        self.leftFoot
+        self.rightFoot
 
 
     def set_sprite_dino(self):
@@ -64,6 +66,11 @@ class Player:
         self.height = 91
         self.width = 84
 
+    def left_edge(self):
+        return self.x + (self.width/3)
+
+    def right_edge(self):
+        return self.x + (self.width / 3 * 2)
 
     def draw(self, screen):
         # draw the animation to the screen
