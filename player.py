@@ -20,8 +20,6 @@ class Player:
         self.y = 0
         self.velocityY = 0
         self.accelerationY = 0
-        self.width = 35
-        self.height = 50
         self.gravity = Gravity(self)
         self.currentAnimation = [self.standing]
 
@@ -45,6 +43,8 @@ class Player:
             (463, 206, 35, 50),
             (527, 206, 35, 50),
         ],-1)
+        self.width = 35
+        self.height = 50
 
 
     def set_sprite_dino(self):
@@ -61,6 +61,8 @@ class Player:
             (1034, 218, 84, 91),
         ])
         self.standing = ss.image_at((10, 218, 83, 91))
+        self.height = 91
+        self.width = 84
 
 
     def draw(self, screen):

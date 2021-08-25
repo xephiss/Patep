@@ -41,7 +41,7 @@ class GameApp:
 
             time_delta = self.clock.tick(90) / 1000.0   # the time that has passed since the last time around the loop
 
-            # retrive events that have fired since the last time around the loop
+            # retrieve events that have fired since the last time around the loop
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     self.running = False

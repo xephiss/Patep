@@ -1,14 +1,13 @@
 import pygame
 from game_platform import Platform
 import random
-import view_port
 
 class GameMap:
     def __init__(self):
         self.platforms = [Platform(100, 420, 256, 64),
-                          #Platform(400, 320, 256, 64),
-                          #Platform(700, 520, 256, 64),
-                          #Platform(1000, 720, 256, 64)
+                          # Platform(400, 320, 256, 64),
+                          # Platform(700, 520, 256, 64),
+                          # Platform(1000, 720, 256, 64)
                           ]
 
         self.background_IMG = pygame.image.load("tiles/png/BG/BG - Copy.png").convert()
@@ -23,7 +22,7 @@ class GameMap:
         for platform in self.platforms:
             if platform.x + platform.width + 100 > self.width:
                 break
-            width = random.randint(2, 6)*64
+            width = random.randint(3, 7)*64
             y = random.randint(max(platform.y - 96, 0), min(platform.y + 256, self.height))
             height_difference = y - platform.y + 96
             spacing = random.randint(45, 45 + (int(height_difference/96) * 30))

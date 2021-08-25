@@ -17,3 +17,8 @@ class ViewPort:
         self.offsetY = y - (self.window_surface.get_height() / 2)
 
         #move the background drawing into the game map
+
+    def draw_line(self,color,startpos,endpos):
+        new_startpos = (startpos[0] - self.offsetX, startpos[1] - self.offsetY)
+        new_endpos = (endpos[0] - self.offsetX, endpos[1] - self.offsetY)
+        pygame.draw.line(self.window_surface, color, new_startpos, new_endpos)
