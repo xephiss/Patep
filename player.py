@@ -48,9 +48,8 @@ class Player:
         self.leftFoot
         self.rightFoot
 
-
     def set_sprite_dino(self):
-        ss = spritesheet.SpriteSheet('green_dino_trimmed.png')
+        ss = spritesheet.SpriteSheet('spritesheets/green_dino_trimmed.png')
         self.walking = ss.images_at([
             (10, 218, 83, 91),
             (132, 218, 83, 91),
@@ -113,4 +112,3 @@ class Player:
         # makes the skeleton jump
         print(self.y)
         self.velocityY = - 250
-

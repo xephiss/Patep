@@ -24,7 +24,7 @@ class SettingsState:
         self.button1 = None
         self.button2 = None
         self.background_image = pygame.image.load("tiles/png/BG/BG - Copy.png")
-        self.green_dino_selection = spritesheet.SpriteSheet('green_dino_trimmed.png').image_at((10, 218, 83, 91))
+        self.green_dino_selection = spritesheet.SpriteSheet('spritesheets/green_dino_trimmed.png').image_at((10, 218, 83, 91))
         self.skeleton_selection = spritesheet.SpriteSheet('skeleton_sheet.png').image_at((14, 143, 35, 48), -1)
         self.sprite = None
 
@@ -43,7 +43,6 @@ class SettingsState:
                                # 'button1', self.ui_manager)
         #self.button2 = UIButton(pygame.Rect((325, 280), (150, 30)),
                                # 'button2', self.ui_manager)
-
 
     def stop(self):
         #stops the settings state
