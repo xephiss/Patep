@@ -65,10 +65,8 @@ class SettingsState:
             position = pygame.mouse.get_pos()
             if 300 <= position[0] <= 383 and 150 <= position[1] <= 241:
                 self.sprite = "green_dino"
-                print("green reached",self.sprite)
             if 400 <= position[0] <= 435 and 150 <= position[1] <= 198:
                 self.sprite = "skeleton"
-                print("skeleton", self.sprite)
             # sprite_selection.SpriteSelection.select_sprite(self, self.sprite)
             self.settings['selected_sprite'] = self.sprite
 

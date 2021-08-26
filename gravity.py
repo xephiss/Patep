@@ -8,7 +8,6 @@ class Gravity:
         # update the velocity that the object moves across the y axis
         self.object.velocityY = self.object.velocityY + (self.object.accelerationY * time_delta)
         self.object.y = self.object.y + (self.object.velocityY * time_delta)
-        print(self.object.x, ",", self.object.y)
 
     def fall(self):
         # start the object falling

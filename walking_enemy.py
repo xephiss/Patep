@@ -15,7 +15,7 @@ class WalkingEnemy(Walking):
         self.velocityY = 0
         self.accelerationY = 0
         self.timeSinceFrame = 0
-        self.playerWalkingSpeed = 20
+        self.playerWalkingSpeed = 10
         self.timeBetweenSteps = 1 / self.playerWalkingSpeed
 
     def set_sprite(self):
@@ -58,6 +58,7 @@ class WalkingEnemy(Walking):
         if self.currentFrame >= len(self.currentAnimation):
             self.currentFrame = 0
         self.x = self.x + (self.direction * 3)
+        # update height every time
 
     def update(self, time_delta):
         # updates the frames of the animation
