@@ -2,7 +2,6 @@
 import spritesheet
 import pygame
 
-
 # import the class Gravity from the file gravity
 from gravity import Gravity
 from walking import Walking
@@ -32,7 +31,7 @@ class Player(Walking):
             self.set_sprite_dino()
 
     def set_sprite_skeleton(self):
-        ss = spritesheet.SpriteSheet('skeleton_sheet.png')
+        ss = spritesheet.SpriteSheet('spritesheets/skeleton_sheet.png')
         self.standing = ss.image_at((14, 143, 35, 48), -1)
         self.walking = ss.images_at([
             # (15 , 78, 35, 50)
@@ -49,7 +48,7 @@ class Player(Walking):
         self.height = 50
 
     def set_sprite_dino(self):
-        ss = spritesheet.SpriteSheet('green_dino_trimmed.png')
+        ss = spritesheet.SpriteSheet('spritesheets/green_dino_trimmed.png')
         self.walking = ss.images_at([
             (10, 218, 83, 91),
             (132, 218, 83, 91),
@@ -92,4 +91,3 @@ class Player(Walking):
         # makes the skeleton jump
         print(self.y)
         self.velocityY = - 250
-
