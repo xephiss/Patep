@@ -4,8 +4,9 @@ import pygame
 
 # import the class Gravity from the file gravity
 from gravity import Gravity
+from walking import Walking
 
-class Player:
+class Player(Walking):
     def __init__(self, selected_sprite):
         self.direction = 0
 
@@ -45,8 +46,6 @@ class Player:
         ],-1)
         self.width = 35
         self.height = 50
-        self.leftFoot
-        self.rightFoot
 
     def set_sprite_dino(self):
         ss = spritesheet.SpriteSheet('spritesheets/green_dino_trimmed.png')
@@ -65,12 +64,6 @@ class Player:
         self.height = 91
         self.width = 84
 
-    def left_edge(self):
-        return self.x + (self.width/3)
-
-    def right_edge(self):
-        return self.x + (self.width / 3 * 2)
-
     def draw(self, screen):
         # draw the animation to the screen
         frame = self.currentAnimation[self.currentFrame]
@@ -78,26 +71,12 @@ class Player:
             frame = pygame.transform.flip(frame, True, False)
         screen.blit(frame, (self.x, self.y))
 
-    def walk_left(self):
-        # make the skeleton walk left
-        self.direction = -1
-
-    def set_position(self, x, y):
-        # set the position of the skeleton
-        self.x = x
-        self.y = y
-
     def next_frame(self):
         # finds the next frame in the animation sequence
         self.currentFrame = self.currentFrame + 1
         if self.currentFrame >= len(self.currentAnimation):
             self.currentFrame = 0
         self.x = self.x + (self.direction * 3)
-
-    def walk_right(self):
-        # make the skeleton walk right
-        self.currentAnimation = self.walking
-        self.direction = +1
 
     def update(self, time_delta):
         # updates the frames of the animation
@@ -112,3 +91,4 @@ class Player:
         # makes the skeleton jump
         print(self.y)
         self.velocityY = - 250
+
