@@ -1,6 +1,7 @@
 class Walking:
     def walk_left(self):
         # make the skeleton walk left
+        self.currentAnimation = self.walking
         self.direction = -1
 
     def walk_right(self):
