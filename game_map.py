@@ -1,5 +1,6 @@
 import pygame
 from game_platform import Platform
+from walking_enemy import WalkingEnemy
 import random
 
 class GameMap:
@@ -9,7 +10,7 @@ class GameMap:
                           # Platform(700, 520, 256, 64),
                           # Platform(1000, 720, 256, 64)
                           ]
-
+        self.enemies = []
         self.background_IMG = pygame.image.load("tiles/png/BG/BG - Copy.png").convert()
         self.background_middle_x = 0
         self.background_left_x = self.background_middle_x - 1000
@@ -19,14 +20,35 @@ class GameMap:
         self.generate()
 
     def generate(self):
+        # loop through list of platforms
         for platform in self.platforms:
+            # if right hand edge of the platform is less then 100 pixels from the right of the end of the map, break
             if platform.x + platform.width + 100 > self.width:
                 break
-            width = random.randint(3, 7)*64
-            y = random.randint(max(platform.y - 96, 0), min(platform.y + 256, self.height))
-            height_difference = y - platform.y + 96
+            # generate a random width of the new platform
+            new_platform_width = random.randint(3, 7)*64
+            # generate a random vertical position for the platform within jumping distance
+            new_platform_y = random.randint(max(platform.y - 96, 0), min(platform.y + 256, self.height))
+            # generate random horizontal position for the new platform within jumping distance (based on height difference)
+            height_difference = new_platform_y - platform.y + 96
             spacing = random.randint(45, 45 + (int(height_difference/96) * 30))
-            self.platforms.append(Platform(platform.x + platform.width + spacing, y, width, 64))
+            new_platform_x = platform.x + platform.width + spacing
+            # append new platform to the list of platforms
+            self.platforms.append(Platform(new_platform_x, new_platform_y, new_platform_width, 64))
+
+            # if an enemy should be generated call the generateEnemy method
+            if self.chanceOfEnemy():
+                self.generateEnemy(new_platform_x, new_platform_width, new_platform_y)
+
+    def chanceOfEnemy(self):
+        # 1 in 3 chance of an enemy
+        return random.randint(1,3) == 1
+
+    def generateEnemy(self, platform_x, platform_width, platform_y):
+        enemy = WalkingEnemy()
+        random_x = random.randint(platform_x, platform_x + platform_width - enemy.width)
+        enemy.set_position(random_x, platform_y - enemy.height)
+        self.enemies.append(enemy)
 
     def draw(self, view_port):
         # checks if the left edge of the viewport is within the right background image panel
@@ -49,6 +71,10 @@ class GameMap:
         # iterate through the list of platforms and draw them
         for platform in self.platforms:
             platform.draw(view_port)
+
+        # iterate through the list of enemies and draw them
+        for enemy in self.enemies:
+            enemy.draw(view_port)
 
     def handle_floor(self, sprite_that_falls):
         # iterate through the list of platforms and call handle_platform_floor on each platform
