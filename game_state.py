@@ -50,18 +50,13 @@ class GameState:
             self.player1.jump()
 
     def update(self, time_delta):
-        # self.view_port.blit(self.background_IMG, [0, 0])
         self.player1.update(time_delta)
-        #self.enemy1.update(time_delta)
         # applies the method fall to skeleton1 causing it to "fall"
         self.player1.gravity.fall()
-        #self.enemy1.gravity.fall()
         # calls the handle_floor method on the map to check if the skeleton should be falling
         self.map.handle_floor(self.player1)
-        #self.map.handle_floor(self.enemy1)
         self.view_port.centre_view_port(self.player1.x, self.player1.y)
         # draws the map
         self.map.draw(self.view_port)
-        # draws the skeleton1
+        # draws the player
         self.player1.draw(self.view_port)
-        #self.enemy1.draw(self.view_port)

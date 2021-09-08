@@ -48,6 +48,7 @@ class GameMap:
         enemy = WalkingEnemy()
         random_x = random.randint(platform_x, platform_x + platform_width - enemy.width)
         enemy.set_position(random_x, platform_y - enemy.height)
+        enemy.walk_left()
         self.enemies.append(enemy)
 
     def draw(self, view_port):
@@ -98,3 +99,13 @@ class GameMap:
                 # applies the method stop_falling to the sprite_that_falls
                 sprite_that_falls.gravity.stop_falling()
                 sprite_that_falls.y = top_of_platform - sprite_that_falls.height - 1   # ensures the sprite lands on the platform
+
+    def update(self,time_delta):
+        # iterate through list of enemies
+        for enemy in self.enemies:
+            #update the postiion of the enemy
+            enemy.update(time_delta)
+            # start the enemy falling
+            enemy.gravity.fall()
+            # check if the enemy should be falling
+            self.handle_floor(enemy)
