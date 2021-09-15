@@ -18,7 +18,6 @@ class Enemy:
         playerBottomEdge = player.y + player.height
 
         if playerRightEdge >= self.left_edge() and playerLeftEdge <= self.right_edge():
-            print("first if")
-            if playerTopEdge >= self.bottom_edge() and playerBottomEdge <= self.top_edge():
+            if playerBottomEdge >= self.top_edge() and playerTopEdge <= self.bottom_edge():
                 return True
 
