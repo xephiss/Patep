@@ -3,6 +3,7 @@ import pygame
 from gravity import Gravity
 from walking import Walking
 
+
 class WalkingEnemy(Walking):
     def __init__(self):
         self.direction = 0
@@ -21,13 +22,13 @@ class WalkingEnemy(Walking):
     def set_sprite(self):
         ss = spritesheet.SpriteSheet('spritesheets/green_trex.png')
         self.walking = ss.images_at([
-            (5,233 ,121 ,80 ),
+            (5, 233, 121, 80),
             (176, 230, 121, 83),
-            (340,227 ,120 ,86 ),
-            (511, 231, 121,82 ),
-            (681,233 ,122 ,80 ),
-            (864,231 ,121 ,82 ),
-            (1035 ,231 ,122, 82),
+            (340, 227, 120, 86),
+            (511, 231, 121, 82),
+            (681, 233, 122, 80),
+            (864, 231, 121, 82),
+            (1035, 231, 122, 82),
             (1217, 232, 122, 81),
             (1388, 233, 122, 80),
             (0, 339, 121, 79),

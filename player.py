@@ -25,6 +25,7 @@ class Player(Walking):
         self.currentAnimation = [self.standing]
 
     def set_sprite(self, selected_sprite):
+        # call the correct method for the sprite selected
         if selected_sprite == "skeleton":
             self.set_sprite_skeleton()
         elif selected_sprite == "green_dino":

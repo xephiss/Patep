@@ -3,8 +3,9 @@ import pygame
 from pygame_gui.elements import UIButton
 from pygame_gui import UI_BUTTON_PRESSED
 
+
 class TutorialState:
-    def __init__(self,window_surface,ui_manager):
+    def __init__(self, window_surface, ui_manager):
         self.transition_target = None
         self.window_surface = window_surface
         self.ui_manager = ui_manager
@@ -17,6 +18,7 @@ class TutorialState:
         self.back_button = None
 
         self.background_image = pygame.image.load("tiles/png/BG/BG - Copy.png")
+
     def start(self):
         # draws the background and the title for the settings menu
         self.transition_target = None
@@ -36,7 +38,7 @@ class TutorialState:
         self.back_button.kill()
         self.back_button = None
 
-    def handle_events(self,event):
+    def handle_events(self, event):
         if event.type == pygame.USEREVENT and event.user_type == UI_BUTTON_PRESSED:
             # exit to main menu if the back button is pressed
             if event.ui_element == self.back_button:

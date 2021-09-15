@@ -3,6 +3,7 @@ from game_platform import Platform
 from walking_enemy import WalkingEnemy
 import random
 
+
 class GameMap:
     def __init__(self):
         self.platforms = [Platform(100, 420, 256, 64),
@@ -29,22 +30,23 @@ class GameMap:
             new_platform_width = random.randint(3, 7)*64
             # generate a random vertical position for the platform within jumping distance
             new_platform_y = random.randint(max(platform.y - 96, 0), min(platform.y + 256, self.height))
-            # generate random horizontal position for the new platform within jumping distance (based on height difference)
+            # generate random horizontal position for the new platform within jumping distance
+            # (based on height difference)
             height_difference = new_platform_y - platform.y + 96
             spacing = random.randint(45, 45 + (int(height_difference/96) * 30))
             new_platform_x = platform.x + platform.width + spacing
             # append new platform to the list of platforms
             self.platforms.append(Platform(new_platform_x, new_platform_y, new_platform_width, 64))
 
-            # if an enemy should be generated call the generateEnemy method
-            if self.chanceOfEnemy():
-                self.generateEnemy(new_platform_x, new_platform_width, new_platform_y)
+            # if an enemy should be generated call the generate_enemy method
+            if self.chance_of_enemy():
+                self.generate_enemy(new_platform_x, new_platform_width, new_platform_y)
 
-    def chanceOfEnemy(self):
+    def chance_of_enemy(self):
         # 1 in 3 chance of an enemy
-        return random.randint(1,3) == 1
+        return random.randint(1, 1) == 1
 
-    def generateEnemy(self, platform_x, platform_width, platform_y):
+    def generate_enemy(self, platform_x, platform_width, platform_y):
         enemy = WalkingEnemy()
         random_x = random.randint(platform_x, platform_x + platform_width - enemy.width)
         enemy.set_position(random_x, platform_y - enemy.height)
@@ -88,6 +90,14 @@ class GameMap:
         elif sprite_that_falls.y > self.height:
             sprite_that_falls.y = self.height
 
+    def handle_platform_edge(self, sprite_that_turns):
+        # make the enemy turn around when it reaches the edge of the platform
+        for platform in self.platforms:
+            if platform.x + 5 <= sprite_that_turns.x <= platform.x + 10:
+                sprite_that_turns.walk_right()
+            if platform.x + platform.width - 10 <= (sprite_that_turns.x + sprite_that_turns.width) <= platform.x + platform.width + 5:
+                sprite_that_turns.walk_left()
+
     def handle_platform_floor(self, sprite_that_falls, platform):
         # check whether the sprite_that_falls that is passed into the method should be falling or not.
         # set co-ordinate for bottom of sprite
@@ -98,14 +108,17 @@ class GameMap:
             if top_of_platform + 5 > bottom_of_sprite > top_of_platform - 3:
                 # applies the method stop_falling to the sprite_that_falls
                 sprite_that_falls.gravity.stop_falling()
-                sprite_that_falls.y = top_of_platform - sprite_that_falls.height - 1   # ensures the sprite lands on the platform
+                # ensures the sprite lands on the platform
+                sprite_that_falls.y = top_of_platform - sprite_that_falls.height - 1
 
-    def update(self,time_delta):
+    def update(self, time_delta):
         # iterate through list of enemies
         for enemy in self.enemies:
-            #update the postiion of the enemy
+            # update the position of the enemy
             enemy.update(time_delta)
             # start the enemy falling
             enemy.gravity.fall()
             # check if the enemy should be falling
             self.handle_floor(enemy)
+            self.handle_platform_edge(enemy)
+            # next step: start walking when they are in the viewport

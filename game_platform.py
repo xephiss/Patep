@@ -12,8 +12,10 @@ class Platform:
         self.x = x
         self.y = y
         self.height = height
-        self.numHorizontalTiles = math.ceil(width / self.BLOCK_SIZE) # ensures the platformer will alwasy be at least as wide as the specified width
-        self.width = (self.numHorizontalTiles + 1) * self.BLOCK_SIZE # calculates the resulting width of the platform
+        # ensures the platform will always be at least as wide as the specified width
+        self.numHorizontalTiles = math.ceil(width / self.BLOCK_SIZE)
+        # calculates the resulting width of the platform
+        self.width = (self.numHorizontalTiles + 1) * self.BLOCK_SIZE
         self.rightTile = self.load_tile(self.platformTiles[2])
         self.middleTile = self.load_tile(self.platformTiles[1])
         self.leftTile = self.load_tile(self.platformTiles[0])
@@ -28,10 +30,10 @@ class Platform:
         return pygame.transform.scale(surface, (self.BLOCK_SIZE, self.BLOCK_SIZE)).convert()
 
     def draw(self, screen):
-        current_pos = self.x    # set the current position
+        current_pos = self.x  # set the current position
         num_horizontal_tiles = self.numHorizontalTiles
 
-        screen.blit(self.leftTile, (current_pos, self.y))   # draw the left tile on the screen
+        screen.blit(self.leftTile, (current_pos, self.y))  # draw the left tile on the screen
 
         current_pos += self.BLOCK_SIZE  # change the current position to the new position
         # calculate how many tiles will be needed to create a platform in the given space
@@ -41,4 +43,4 @@ class Platform:
                 screen.blit(self.middleTile, (current_pos, self.y))
                 num_horizontal_tiles -= 1
                 current_pos += self.BLOCK_SIZE
-        screen.blit(self.rightTile, (current_pos , self.y))  # draw the right tile
+        screen.blit(self.rightTile, (current_pos, self.y))  # draw the right tile

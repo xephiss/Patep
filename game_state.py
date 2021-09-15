@@ -3,8 +3,6 @@ import pygame
 import player
 import game_map
 import view_port
-import game_platform
-import walking_enemy
 
 
 class GameState:
@@ -20,28 +18,28 @@ class GameState:
 
         self.settings = settings
         self.player1 = player.Player(self.settings['selected_sprite'])
-        #self.enemy1 = walking_enemy.WalkingEnemy()
+        # self.enemy1 = walking_enemy.WalkingEnemy()
 
-        #self.background_IMG = pygame.image.load("tiles/png/BG/BG - Copy.png").convert()
+        # self.background_IMG = pygame.image.load("tiles/png/BG/BG - Copy.png").convert()
 
     def start(self):
         self.player1 = player.Player(self.settings['selected_sprite'])
 
         self.player1.set_position(110, 300)
-        #self.enemy1.set_position(180,300)
-        self.player1.gravity.fall()   # applies gravity to skeleton1 by calling the gravity class
-        #self.enemy1.walk_right()
+        # self.enemy1.set_position(180,300)
+        self.player1.gravity.fall()  # applies gravity to player by calling the gravity class
+        # self.enemy1.walk_right()
         self.transition_target = None
         self.background_surf = pygame.Surface((800, 600))
-
 
     def stop(self):
         self.background_surf = None
 
-
     def handle_events(self, event):
+        # transition to the main menu
         if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
             self.transition_target = 'main_menu'
+        # move the player in the right direction depending on the key pressed
         if event.type == pygame.KEYDOWN and event.key == pygame.K_LEFT:
             self.player1.walk_left()
         if event.type == pygame.KEYDOWN and event.key == pygame.K_RIGHT:
@@ -52,7 +50,7 @@ class GameState:
     def update(self, time_delta):
         self.map.update(time_delta)
         self.player1.update(time_delta)
-        # applies the method fall to skeleton1 causing it to "fall"
+        # applies the method fall to skeleton1 causing it to fall
         self.player1.gravity.fall()
         # calls the handle_floor method on the map to check if the skeleton should be falling
         self.map.handle_floor(self.player1)

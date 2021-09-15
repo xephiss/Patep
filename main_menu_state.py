@@ -46,7 +46,6 @@ class MainMenuState:
                                     'Quit',
                                     self.ui_manager)
 
-
     def stop(self):
         # stops the main menu state
         self.background_surf = None
@@ -82,4 +81,4 @@ class MainMenuState:
         self.window_surface.blit(self.background_surf, (0, 0))  # clears the window to the background surface
         self.window_surface.blit(self.title_text, self.title_pos_rect)  # positions the title at the top
         self.ui_manager.draw_ui(self.window_surface)  # Draw the UI buttons
-        self.background_surf.blit(self.background_image, [0, 0])# draws the background image
+        self.background_surf.blit(self.background_image, [0, 0])  # draws the background image
