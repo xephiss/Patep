@@ -57,5 +57,8 @@ class GameState:
         self.view_port.centre_view_port(self.player1.x, self.player1.y)
         # draws the map
         self.map.draw(self.view_port)
+        # detect if the player is colliding with any enemies
+        if self.map.detect_enemy_collision(self.player1):
+            print("collided")
         # draws the player
         self.player1.draw(self.view_port)

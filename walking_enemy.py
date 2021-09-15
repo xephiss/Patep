@@ -2,9 +2,10 @@ import spritesheet
 import pygame
 from gravity import Gravity
 from walking import Walking
+from enemy import Enemy
 
 
-class WalkingEnemy(Walking):
+class WalkingEnemy(Walking, Enemy):
     def __init__(self):
         self.direction = 0
         self.x = 0

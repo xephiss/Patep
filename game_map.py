@@ -113,6 +113,12 @@ class GameMap:
                 # ensures the object lands on the platform
                 sprite_that_falls.y = top_of_platform - sprite_that_falls.height - 1
 
+    def detect_enemy_collision(self, player):
+        # check if the player is collidning with any enemies by iterating thorugh the list of enemies
+        for enemy in self.enemies:
+            if enemy.detect_collision(player):
+                return True
+
     def update(self, time_delta, view_port):
         # iterate through list of enemies
         for enemy in self.enemies:
