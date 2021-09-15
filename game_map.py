@@ -44,7 +44,7 @@ class GameMap:
 
     def chance_of_enemy(self):
         # 1 in 3 chance of an enemy
-        return random.randint(1, 3) == 1
+        return random.randint(1, 1) == 1
 
     def generate_enemy(self, platform_x, platform_width, platform_y):
         enemy = WalkingEnemy()
