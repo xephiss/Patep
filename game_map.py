@@ -24,7 +24,7 @@ class GameMap:
         # loop through list of platforms
         for platform in self.platforms:
             # if right hand edge of the platform is less then 100 pixels from the right of the end of the map, break
-            if platform.x + platform.width + 100 > self.width:
+            if platform.right_edge() + 100 > self.width:
                 break
             # generate a random width of the new platform
             new_platform_width = random.randint(3, 7)*64
@@ -34,7 +34,7 @@ class GameMap:
             # (based on height difference)
             height_difference = new_platform_y - platform.y + 96
             spacing = random.randint(45, 45 + (int(height_difference/96) * 30))
-            new_platform_x = platform.x + platform.width + spacing
+            new_platform_x = platform.right_edge() + spacing
             # append new platform to the list of platforms
             self.platforms.append(Platform(new_platform_x, new_platform_y, new_platform_width, 64))
 
@@ -97,7 +97,7 @@ class GameMap:
         for platform in self.platforms:
             if platform.x + 5 <= sprite_that_turns.x <= platform.x + 10:
                 sprite_that_turns.walk_right()
-            if platform.x + platform.width - 10 <= (sprite_that_turns.x + sprite_that_turns.width) <= platform.x + platform.width + 5:
+            if platform.right_edge() - 10 <= (sprite_that_turns.x + sprite_that_turns.width) <= platform.right_edge() + 5:
                 sprite_that_turns.walk_left()
 
     def handle_platform_floor(self, sprite_that_falls, platform):
@@ -105,7 +105,7 @@ class GameMap:
         # set co-ordinate for bottom of object
         bottom_of_sprite = sprite_that_falls.y + sprite_that_falls.height
         top_of_platform = platform.y + 2
-        if platform.x <= sprite_that_falls.right_edge() and sprite_that_falls.left_edge() <= platform.x + platform.width:
+        if platform.x <= sprite_that_falls.right_edge() and sprite_that_falls.left_edge() <= platform.right_edge():
             # checks if object is colliding with the platform
             if top_of_platform + 5 > bottom_of_sprite > top_of_platform - 3:
                 # applies the method stop_falling to the sprite_that_falls

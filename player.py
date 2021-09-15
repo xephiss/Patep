@@ -5,8 +5,10 @@ import pygame
 # import the class Gravity from the file gravity
 from gravity import Gravity
 from walking import Walking
+from edges import Edges
 
-class Player(Walking):
+
+class Player(Walking, Edges):
     def __init__(self, selected_sprite):
         self.direction = 0
 

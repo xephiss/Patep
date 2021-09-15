@@ -2,8 +2,10 @@
 import pygame
 import math
 
+from edges import Edges
 
-class Platform:
+
+class Platform(Edges):
     BLOCK_SIZE = 64
 
     def __init__(self, x, y, width, height):
