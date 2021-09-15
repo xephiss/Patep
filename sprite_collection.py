@@ -12,7 +12,7 @@ class SpriteCollection(object):
         try:
             image = pygame.image.load(self.directoryName + "/" + fileName).convert_alpha()
         except pygame.error as message:
-            print('Unable to load sprite image:', fileName)
+            print('Unable to load object image:', fileName)
             raise SystemExit(message)
         if colorkey is not None:
             if colorkey == -1:

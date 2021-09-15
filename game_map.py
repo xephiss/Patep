@@ -44,7 +44,7 @@ class GameMap:
 
     def chance_of_enemy(self):
         # 1 in 3 chance of an enemy
-        return random.randint(1, 1) == 1
+        return random.randint(1, 3) == 1
 
     def generate_enemy(self, platform_x, platform_width, platform_y):
         enemy = WalkingEnemy()
@@ -73,7 +73,8 @@ class GameMap:
 
         # iterate through the list of platforms and draw them
         for platform in self.platforms:
-            platform.draw(view_port)
+            if view_port.contains(platform):
+                platform.draw(view_port)
 
         # iterate through the list of enemies and draw them
         for enemy in self.enemies:
@@ -85,7 +86,7 @@ class GameMap:
         for platform in self.platforms:
             self.handle_platform_floor(sprite_that_falls, platform)
 
-        # check if the sprite is too high or too low and reset the sprite y value
+        # check if the object is too high or too low and reset the object y value
         if sprite_that_falls.y < sprite_that_falls.height:
             sprite_that_falls.y = sprite_that_falls.height
         elif sprite_that_falls.y > self.height:
@@ -101,15 +102,15 @@ class GameMap:
 
     def handle_platform_floor(self, sprite_that_falls, platform):
         # check whether the sprite_that_falls that is passed into the method should be falling or not.
-        # set co-ordinate for bottom of sprite
+        # set co-ordinate for bottom of object
         bottom_of_sprite = sprite_that_falls.y + sprite_that_falls.height
         top_of_platform = platform.y + 2
         if platform.x <= sprite_that_falls.right_edge() and sprite_that_falls.left_edge() <= platform.x + platform.width:
-            # checks if sprite is colliding with the platform
+            # checks if object is colliding with the platform
             if top_of_platform + 5 > bottom_of_sprite > top_of_platform - 3:
                 # applies the method stop_falling to the sprite_that_falls
                 sprite_that_falls.gravity.stop_falling()
-                # ensures the sprite lands on the platform
+                # ensures the object lands on the platform
                 sprite_that_falls.y = top_of_platform - sprite_that_falls.height - 1
 
     def update(self, time_delta, view_port):
@@ -124,4 +125,3 @@ class GameMap:
                 # check if the enemy should be falling
                 self.handle_floor(enemy)
                 self.handle_platform_edge(enemy)
-                # next step: start walking when they are in the viewport

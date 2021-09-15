@@ -19,7 +19,7 @@ class ViewPort:
         self.offsetX = x - (self.width / 2)
         self.offsetY = y - (self.height / 2)
 
-    def contains(self, sprite):
-        # check if the sprite is within the view_port
-        return sprite.x + sprite.width > self.offsetX and sprite.x < self.offsetX + self.width \
-               and sprite.y + sprite.height > self.offsetY and sprite.y < self.offsetY + self.height
+    def contains(self, object):
+        # check if the object is within the view_port
+        return object.x + object.width > self.offsetX and object.x < self.offsetX + self.width \
+               and object.y + object.height > self.offsetY and object.y < self.offsetY + self.height

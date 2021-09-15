@@ -70,7 +70,7 @@ class SettingsState:
                 self.sprite = "green_dino"
             if 400 <= position[0] <= 435 and 150 <= position[1] <= 198:
                 self.sprite = "skeleton"
-            # sprite_selection.SpriteSelection.select_sprite(self, self.sprite)
+            # sprite_selection.SpriteSelection.select_sprite(self, self.object)
             self.settings['selected_sprite'] = self.sprite
 
     def update(self, time_delta):
@@ -78,5 +78,5 @@ class SettingsState:
         self.window_surface.blit(self.title_text, self.title_pos_rect)  # positions the title at the top
         self.ui_manager.draw_ui(self.window_surface)  # Draw the UI buttons
         self.background_surf.blit(self.background_image, [0, 0])  # draws the background image
-        self.background_surf.blit(self.green_dino_selection, (300, 150))  # draw the green_dino sprite
-        self.background_surf.blit(self.skeleton_selection, (400, 150))  # draw the skeleton sprite
+        self.background_surf.blit(self.green_dino_selection, (300, 150))  # draw the green_dino object
+        self.background_surf.blit(self.skeleton_selection, (400, 150))  # draw the skeleton object
