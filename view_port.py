@@ -6,6 +6,8 @@ class ViewPort:
         self.window_surface = window_surface
         self.offsetY = 0
         self.offsetX = 0
+        self.width = window_surface.get_width()
+        self.height = window_surface.get_height()
 
     def blit(self, source, dest, area=None, special_flags=0):
         # draw the object on the screen with the correct position offset
@@ -14,12 +16,10 @@ class ViewPort:
 
     def centre_view_port(self, x, y):
         # creates offset based on player position on the map
-        self.offsetX = x - (self.window_surface.get_width() / 2)
-        self.offsetY = y - (self.window_surface.get_height() / 2)
+        self.offsetX = x - (self.width / 2)
+        self.offsetY = y - (self.height / 2)
 
-        # move the background drawing into the game map
-
-    def draw_line(self, color, startpos, endpos):
-        new_startpos = (startpos[0] - self.offsetX, startpos[1] - self.offsetY)
-        new_endpos = (endpos[0] - self.offsetX, endpos[1] - self.offsetY)
-        pygame.draw.line(self.window_surface, color, new_startpos, new_endpos)
+    def contains(self, sprite):
+        # check if the sprite is within the view_port
+        return sprite.x + sprite.width > self.offsetX and sprite.x < self.offsetX + self.width \
+               and sprite.y + sprite.height > self.offsetY and sprite.y < self.offsetY + self.height

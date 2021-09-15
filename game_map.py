@@ -77,7 +77,8 @@ class GameMap:
 
         # iterate through the list of enemies and draw them
         for enemy in self.enemies:
-            enemy.draw(view_port)
+            if view_port.contains(enemy):
+                enemy.draw(view_port)
 
     def handle_floor(self, sprite_that_falls):
         # iterate through the list of platforms and call handle_platform_floor on each platform
@@ -111,14 +112,16 @@ class GameMap:
                 # ensures the sprite lands on the platform
                 sprite_that_falls.y = top_of_platform - sprite_that_falls.height - 1
 
-    def update(self, time_delta):
+    def update(self, time_delta, view_port):
         # iterate through list of enemies
         for enemy in self.enemies:
-            # update the position of the enemy
-            enemy.update(time_delta)
-            # start the enemy falling
-            enemy.gravity.fall()
-            # check if the enemy should be falling
-            self.handle_floor(enemy)
-            self.handle_platform_edge(enemy)
-            # next step: start walking when they are in the viewport
+            # check if the enemy is in the viewport
+            if view_port.contains(enemy):
+                # update the position of the enemy
+                enemy.update(time_delta)
+                # start the enemy falling
+                enemy.gravity.fall()
+                # check if the enemy should be falling
+                self.handle_floor(enemy)
+                self.handle_platform_edge(enemy)
+                # next step: start walking when they are in the viewport

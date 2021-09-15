@@ -48,7 +48,7 @@ class GameState:
             self.player1.jump()
 
     def update(self, time_delta):
-        self.map.update(time_delta)
+        self.map.update(time_delta, self.view_port)
         self.player1.update(time_delta)
         # applies the method fall to skeleton1 causing it to fall
         self.player1.gravity.fall()
