@@ -4,7 +4,8 @@ import player
 import game_map
 import view_port
 import lives
-
+import spritesheet
+import game_over
 
 class GameState:
     def __init__(self, window_surface, clock, settings):
@@ -20,9 +21,16 @@ class GameState:
         self.settings = settings
         self.player1 = player.Player(self.settings['selected_sprite'])
 
+        self.lives_sprite = spritesheet.SpriteSheet("spritesheets/green_cartoon_ptero.png")
+
         self.numLives = 3
+        self.title_font = pygame.font.Font(None, 128)
+        self.title_pos_rect = None
+
+        self.is_paused = False
 
     def start(self):
+        self.is_paused = False
         self.player1 = player.Player(self.settings['selected_sprite'])
 
         self.player1.set_position(110, 300)
@@ -35,6 +43,14 @@ class GameState:
 
     def stop(self):
         self.background_surf = None
+
+    def game_over(self):
+        self.is_paused = True
+        self.window_surface.fill((0, 0, 0))
+        self.title_text = self.title_font.render('Game Over', True, (0, 0, 0))
+        self.title_pos_rect = self.title_text.get_rect()
+        self.title_pos_rect.center = (400, 50)
+        self.window_surface.blit(self.title_text, self.title_pos_rect)
 
     def handle_events(self, event):
         # transition to the main menu
@@ -49,23 +65,24 @@ class GameState:
             self.player1.jump()
 
     def update(self, time_delta):
-        self.map.update(time_delta, self.view_port)
-        self.player1.update(time_delta)
-        # applies the method fall to skeleton1 causing it to fall
-        self.player1.gravity.fall()
-        # calls the handle_floor method on the map to check if the skeleton should be falling
-        self.map.handle_floor(self.player1)
-        self.view_port.centre_view_port(self.player1.x, self.player1.y)
-        # draws the map
-        self.map.draw(self.view_port)
-        # detect if the player is colliding with any enemies
-        if self.map.detect_enemy_collision(self.player1):
-            # take away a life
-            self.player1.numLives = self.player1.numLives - 1
-            self.player1.on_death()
+        if not self.is_paused:
+            self.map.update(time_delta, self.view_port)
+            self.player1.update(time_delta)
+            # applies the method fall to skeleton1 causing it to fall
+            self.player1.gravity.fall()
+            # calls the handle_floor method on the map to check if the skeleton should be falling
+            self.map.handle_floor(self.player1)
+            self.view_port.centre_view_port(self.player1.x, self.player1.y)
+            # draws the map
+            self.map.draw(self.view_port)
+            # detect if the player is colliding with any enemies
+            if self.map.detect_enemy_collision(self.player1):
+                # take away a life
+                self.player1.numLives = self.player1.numLives - 1
+                self.player1.on_death()
 
-        lives.draw_lives(self.player1.numLives, self.window_surface)   # draw the icons for lives
-        # draws the player
-        self.player1.draw(self.view_port)
-        if self.player1.numLives == 0:
-            print("game over")
+            lives.draw_lives(self.player1.numLives, self.window_surface, self.lives_sprite)   # draw the icons for lives
+            # draws the player
+            self.player1.draw(self.view_port)
+            if self.player1.numLives == 0:
+               self.game_over()

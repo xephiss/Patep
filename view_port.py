@@ -18,7 +18,8 @@ class ViewPort:
         # creates offset based on player position on the map
         self.offsetX = x - (self.width / 2)
         self.offsetY = y - (self.height / 2)
-        print("self.offsetY:", self.offsetY)
+
+        # Stop the view port following the player below 200 pixels, so the player can fall of the screen
         if self.offsetY > 200:
             self.offsetY = 200
 

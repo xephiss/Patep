@@ -13,6 +13,7 @@ class Player(Walking, Edges):
         self.direction = 0
 
         self.timeSinceFrame = 0
+        self.walk_speed = 10.0
         self.playerWalkingSpeed = 30
         self.timeBetweenSteps = 1/self.playerWalkingSpeed
 
@@ -80,7 +81,7 @@ class Player(Walking, Edges):
         self.currentFrame = self.currentFrame + 1
         if self.currentFrame >= len(self.currentAnimation):
             self.currentFrame = 0
-        self.x = self.x + (self.direction * 3)
+        self.x = self.x + (self.direction * self.walk_speed)
 
     def update(self, time_delta):
         # updates the frames of the animation

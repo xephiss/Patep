@@ -90,7 +90,7 @@ class GameMap:
         if sprite_that_falls.y < sprite_that_falls.height:
             sprite_that_falls.y = sprite_that_falls.height
         elif sprite_that_falls.y > 800:
-            #sprite_that_falls.y = self.height
+            # sprite_that_falls.y = self.height
             sprite_that_falls.numLives -= 1
             sprite_that_falls.on_death()
 
