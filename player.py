@@ -25,6 +25,7 @@ class Player(Walking, Edges):
         self.accelerationY = 0
         self.gravity = Gravity(self)
         self.currentAnimation = [self.standing]
+        self.numLives = 0
 
     def set_sprite(self, selected_sprite):
         # call the correct method for the object selected
@@ -93,3 +94,6 @@ class Player(Walking, Edges):
     def jump(self):
         # makes the skeleton jump
         self.velocityY = - 250
+
+    def on_death(self):
+        self.set_position(110, 300)

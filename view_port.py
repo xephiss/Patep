@@ -18,6 +18,9 @@ class ViewPort:
         # creates offset based on player position on the map
         self.offsetX = x - (self.width / 2)
         self.offsetY = y - (self.height / 2)
+        print("self.offsetY:", self.offsetY)
+        if self.offsetY > 200:
+            self.offsetY = 200
 
     def contains(self, object):
         # check if the object is within the view_port

@@ -3,13 +3,14 @@ import pygame
 import player
 import game_map
 import view_port
+import lives
 
 
 class GameState:
     def __init__(self, window_surface, clock, settings):
         # initialise the skeleton and the platform
         self.map = game_map.GameMap()
-
+        self.window_surface = window_surface
         self.clock = clock
         self.transition_target = None
         self.view_port = view_port.ViewPort(window_surface)
@@ -18,9 +19,8 @@ class GameState:
 
         self.settings = settings
         self.player1 = player.Player(self.settings['selected_sprite'])
-        # self.enemy1 = walking_enemy.WalkingEnemy()
 
-        # self.background_IMG = pygame.image.load("tiles/png/BG/BG - Copy.png").convert()
+        self.numLives = 3
 
     def start(self):
         self.player1 = player.Player(self.settings['selected_sprite'])
@@ -31,6 +31,7 @@ class GameState:
         # self.enemy1.walk_right()
         self.transition_target = None
         self.background_surf = pygame.Surface((800, 600))
+        self.player1.numLives = 3
 
     def stop(self):
         self.background_surf = None
@@ -59,6 +60,12 @@ class GameState:
         self.map.draw(self.view_port)
         # detect if the player is colliding with any enemies
         if self.map.detect_enemy_collision(self.player1):
-            print("collided")
+            # take away a life
+            self.player1.numLives = self.player1.numLives - 1
+            self.player1.on_death()
+
+        lives.draw_lives(self.player1.numLives, self.window_surface)   # draw the icons for lives
         # draws the player
         self.player1.draw(self.view_port)
+        if self.player1.numLives == 0:
+            print("game over")

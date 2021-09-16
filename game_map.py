@@ -44,7 +44,7 @@ class GameMap:
 
     def chance_of_enemy(self):
         # 1 in 3 chance of an enemy
-        return random.randint(1, 1) == 1
+        return random.randint(1, 3) == 1
 
     def generate_enemy(self, platform_x, platform_width, platform_y):
         enemy = WalkingEnemy()
@@ -89,8 +89,10 @@ class GameMap:
         # check if the object is too high or too low and reset the object y value
         if sprite_that_falls.y < sprite_that_falls.height:
             sprite_that_falls.y = sprite_that_falls.height
-        elif sprite_that_falls.y > self.height:
-            sprite_that_falls.y = self.height
+        elif sprite_that_falls.y > 800:
+            #sprite_that_falls.y = self.height
+            sprite_that_falls.numLives -= 1
+            sprite_that_falls.on_death()
 
     def handle_platform_edge(self, sprite_that_turns):
         # make the enemy turn around when it reaches the edge of the platform
@@ -114,7 +116,7 @@ class GameMap:
                 sprite_that_falls.y = top_of_platform - sprite_that_falls.height - 1
 
     def detect_enemy_collision(self, player):
-        # check if the player is collidning with any enemies by iterating thorugh the list of enemies
+        # check if the player is colliding with any enemies by iterating through the list of enemies
         for enemy in self.enemies:
             if enemy.detect_collision(player):
                 return True
