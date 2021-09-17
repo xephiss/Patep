@@ -48,7 +48,7 @@ class Player(Walking, Edges):
             (399, 206, 35, 50),
             (463, 206, 35, 50),
             (527, 206, 35, 50),
-        ],-1)
+        ], -1)
         self.width = 35
         self.height = 50
 

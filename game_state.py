@@ -5,12 +5,18 @@ import game_map
 import view_port
 import lives
 import spritesheet
-import game_over
+
 
 class GameState:
     def __init__(self, window_surface, clock, settings):
         # initialise the skeleton and the platform
-        self.map = game_map.GameMap()
+        self.level1 = game_map.GameMap()
+        self.level2 = game_map.GameMap()
+        self.level3 = game_map.GameMap()
+        self.list_of_levels = [self.level1, self.level2, self.level3]
+        self.level_finished = False
+        self.current_level = 0
+
         self.window_surface = window_surface
         self.clock = clock
         self.transition_target = None
@@ -63,26 +69,31 @@ class GameState:
             self.player1.walk_right()
         if event.type == pygame.KEYDOWN and event.key == pygame.K_UP:
             self.player1.jump()
+        if self.level_finished:
+            self.current_level += 1
+            self.player1.set_position(110, 300)
+
 
     def update(self, time_delta):
         if not self.is_paused:
-            self.map.update(time_delta, self.view_port)
+            self.list_of_levels[self.current_level].update(time_delta, self.view_port)
             self.player1.update(time_delta)
             # applies the method fall to skeleton1 causing it to fall
             self.player1.gravity.fall()
             # calls the handle_floor method on the map to check if the skeleton should be falling
-            self.map.handle_floor(self.player1)
+            self.list_of_levels[self.current_level].handle_floor(self.player1, True)
             self.view_port.centre_view_port(self.player1.x, self.player1.y)
             # draws the map
-            self.map.draw(self.view_port)
+            self.list_of_levels[self.current_level].draw(self.view_port)
             # detect if the player is colliding with any enemies
-            if self.map.detect_enemy_collision(self.player1):
+            if self.list_of_levels[self.current_level].detect_enemy_collision(self.player1):
                 # take away a life
                 self.player1.numLives = self.player1.numLives - 1
                 self.player1.on_death()
 
-            lives.draw_lives(self.player1.numLives, self.window_surface, self.lives_sprite)   # draw the icons for lives
+            lives.draw_lives(self.player1.numLives, self.window_surface, self.lives_sprite)  # draw the icons for lives
             # draws the player
             self.player1.draw(self.view_port)
+            self.level_finished = self.list_of_levels[self.current_level].end_level(self.player1, self.window_surface)
             if self.player1.numLives == 0:
-               self.game_over()
+                self.game_over()
