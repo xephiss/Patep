@@ -27,7 +27,7 @@ class GameState:
         self.settings = settings
         self.player1 = player.Player(self.settings['selected_sprite'])
 
-        self.lives_sprite = spritesheet.SpriteSheet("spritesheets/green_cartoon_ptero.png")
+        self.lives_sprite = spritesheet.SpriteSheet("spritesheets/icons.png")
 
         self.numLives = 3
         self.title_font = pygame.font.Font(None, 128)
@@ -40,9 +40,7 @@ class GameState:
         self.player1 = player.Player(self.settings['selected_sprite'])
 
         self.player1.set_position(110, 300)
-        # self.enemy1.set_position(180,300)
         self.player1.gravity.fall()  # applies gravity to player by calling the gravity class
-        # self.enemy1.walk_right()
         self.transition_target = None
         self.background_surf = pygame.Surface((800, 600))
         self.player1.numLives = 3
@@ -69,31 +67,36 @@ class GameState:
             self.player1.walk_right()
         if event.type == pygame.KEYDOWN and event.key == pygame.K_UP:
             self.player1.jump()
-        if self.level_finished:
-            self.current_level += 1
-            self.player1.set_position(110, 300)
-
+        # if the level has been completed, increase the current_level variable and reset the player position
 
     def update(self, time_delta):
         if not self.is_paused:
-            self.list_of_levels[self.current_level].update(time_delta, self.view_port)
+            self.current_map().update(time_delta, self.view_port)
             self.player1.update(time_delta)
             # applies the method fall to skeleton1 causing it to fall
             self.player1.gravity.fall()
             # calls the handle_floor method on the map to check if the skeleton should be falling
-            self.list_of_levels[self.current_level].handle_floor(self.player1, True)
+            self.current_map().handle_floor(self.player1, True)
             self.view_port.centre_view_port(self.player1.x, self.player1.y)
             # draws the map
-            self.list_of_levels[self.current_level].draw(self.view_port)
+            self.current_map().draw(self.view_port)
             # detect if the player is colliding with any enemies
-            if self.list_of_levels[self.current_level].detect_enemy_collision(self.player1):
+            if self.current_map().detect_enemy_collision(self.player1):
                 # take away a life
                 self.player1.numLives = self.player1.numLives - 1
+                #   call on death method
                 self.player1.on_death()
 
             lives.draw_lives(self.player1.numLives, self.window_surface, self.lives_sprite)  # draw the icons for lives
             # draws the player
             self.player1.draw(self.view_port)
-            self.level_finished = self.list_of_levels[self.current_level].end_level(self.player1, self.window_surface)
+            self.level_finished = self.current_map().end_level(self.player1)
+            if self.level_finished:
+                self.current_level += 1
+                self.player1.set_position(110, 300)
+
             if self.player1.numLives == 0:
                 self.game_over()
+
+    def current_map(self):
+        return self.list_of_levels[self.current_level]

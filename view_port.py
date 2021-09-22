@@ -1,6 +1,3 @@
-import pygame
-
-
 class ViewPort:
     def __init__(self, window_surface):
         self.window_surface = window_surface

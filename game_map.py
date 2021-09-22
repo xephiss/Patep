@@ -4,7 +4,6 @@ from walking_enemy import WalkingEnemy
 import spritesheet
 import random
 
-
 class GameMap:
     def __init__(self):
         self.Platforminstance1 = Platform(100, 420, 256, 64)
@@ -44,6 +43,8 @@ class GameMap:
             if self.chance_of_enemy():
                 self.generate_enemy(new_platform_x, new_platform_width, new_platform_y)
 
+            self.create_end_level_marker()
+
     def chance_of_enemy(self):
         # 1 in 3 chance of an enemy
         return random.randint(1, 3) == 1
@@ -82,6 +83,8 @@ class GameMap:
         for enemy in self.enemies:
             if view_port.contains(enemy):
                 enemy.draw(view_port)
+
+        self.draw_end_level_marker(view_port)
 
     def handle_floor(self, sprite_that_falls, player):
         # iterate through the list of platforms and call handle_platform_floor on each platform
@@ -123,19 +126,21 @@ class GameMap:
             if enemy.detect_collision(player):
                 return True
 
-    def end_level(self, player, window_surface):
+    def draw_end_level_marker(self, view_port):
+        end_level_marker_spritesheet = spritesheet.SpriteSheet('spritesheets/portal.png')
+        end_level_marker = end_level_marker_spritesheet.image_at((0, 0, 74, 81))
+        view_port.blit(end_level_marker, (self.end_level_x, self.end_level_y))  # draw the end marker to the screen
 
-        end_level_marker_spritesheet = spritesheet.SpriteSheet('spritesheets/skeleton_sheet.png')
-        end_level_marker = end_level_marker_spritesheet.image_at((14, 143, 35, 48), -1)
+    def create_end_level_marker(self):
         last_platform_index = len(self.platforms) - 1
-        last_platform_x = self.platforms[last_platform_index].x
-        last_platform_y = self.platforms[last_platform_index].y
-        last_platform_width = self.platforms[last_platform_index].width
-        last_platform_height = self.platforms[last_platform_index].height
-        window_surface.blit(end_level_marker, (last_platform_x, last_platform_y))   # draw the end marker to the screen
+        last_platform = self.platforms[last_platform_index]
+        self.end_level_x = last_platform.x + (last_platform.width/2)
+        self.end_level_y = last_platform.y - 85
+
+    def end_level(self, player):
         # if the player is at the same position as the end marker, the function will return True
-        if player.right_edge() >= last_platform_x and player.left_edge() <= last_platform_x + last_platform_width:
-            if player.bottom_edge() >= last_platform_y and player.top_edge() <= (last_platform_y + last_platform_height):
+        if player.right_edge() >= self.end_level_x:
+            if player.bottom_edge() <= self.end_level_y + 100:
                 return True
 
     def update(self, time_delta, view_port):

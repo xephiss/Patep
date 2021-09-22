@@ -13,7 +13,7 @@ class Player(Walking, Edges):
         self.direction = 0
 
         self.timeSinceFrame = 0
-        self.walk_speed = 10.0
+        self.walk_speed = 8.0
         self.playerWalkingSpeed = 30
         self.timeBetweenSteps = 1/self.playerWalkingSpeed
 
