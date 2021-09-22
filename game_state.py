@@ -13,7 +13,9 @@ class GameState:
         self.level1 = game_map.GameMap()
         self.level2 = game_map.GameMap()
         self.level3 = game_map.GameMap()
-        self.list_of_levels = [self.level1, self.level2, self.level3]
+        self.level4 = game_map.GameMap()
+        self.level5 = game_map.GameMap()
+        self.list_of_levels = [self.level1, self.level2, self.level3, self.level4, self.level5]
         self.level_finished = False
         self.current_level = 0
 
@@ -30,10 +32,11 @@ class GameState:
         self.lives_sprite = spritesheet.SpriteSheet("spritesheets/icons.png")
 
         self.numLives = 3
-        self.title_font = pygame.font.Font(None, 128)
-        self.title_pos_rect = None
+        self.level_font = pygame.font.Font(None, 128)
+        self.level_pos_rect = None
 
         self.is_paused = False
+
 
     def start(self):
         self.is_paused = False
@@ -70,6 +73,11 @@ class GameState:
         # if the level has been completed, increase the current_level variable and reset the player position
 
     def update(self, time_delta):
+
+        self.level_text = self.level_font.render('Level ' + str(self.current_level + 1), True, (0, 0, 0))
+        self.level_pos_rect = self.level_text.get_rect()
+        self.level_pos_rect.center = (400, 50)
+
         if not self.is_paused:
             self.current_map().update(time_delta, self.view_port)
             self.player1.update(time_delta)
@@ -97,6 +105,8 @@ class GameState:
 
             if self.player1.numLives == 0:
                 self.game_over()
+
+            self.window_surface.blit(self.level_text, self.level_pos_rect)
 
     def current_map(self):
         return self.list_of_levels[self.current_level]
