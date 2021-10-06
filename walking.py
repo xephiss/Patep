@@ -3,11 +3,17 @@ class Walking:
         # make the skeleton walk left
         self.currentAnimation = self.walking
         self.direction = -1
+        self.moving = 1
 
     def walk_right(self):
         # make the skeleton walk right
         self.currentAnimation = self.walking
         self.direction = +1
+        self.moving = 1
+
+    def stop_walking(self):
+        # stop walking
+        self.moving = 0
 
     def left_edge(self):
         return self.x + (self.width/3)

@@ -4,14 +4,11 @@ from walking_enemy import WalkingEnemy
 import spritesheet
 import random
 
+
 class GameMap:
     def __init__(self):
         self.Platforminstance1 = Platform(100, 420, 256, 64)
-        self.platforms = [self.Platforminstance1,
-                          # Platform(400, 320, 256, 64),
-                          # Platform(700, 520, 256, 64),
-                          # Platform(1000, 720, 256, 64)
-                          ]
+        self.platforms = [self.Platforminstance1, ]
         self.enemies = []
         self.background_IMG = pygame.image.load("tiles/png/BG/BG - Copy.png").convert()
         self.background_middle_x = 0
@@ -102,9 +99,9 @@ class GameMap:
     def handle_platform_edge(self, sprite_that_turns):
         # make the enemy turn around when it reaches the edge of the platform
         for platform in self.platforms:
-            if platform.x + 5 <= sprite_that_turns.x <= platform.x + 10:
+            if platform.x <= sprite_that_turns.x <= platform.x + 10:
                 sprite_that_turns.walk_right()
-            if platform.right_edge() - 10 <= (sprite_that_turns.x + sprite_that_turns.width) <= platform.right_edge() + 5:
+            if platform.right_edge() - 10 <= (sprite_that_turns.x + sprite_that_turns.width) <= platform.right_edge():
                 sprite_that_turns.walk_left()
 
     def handle_platform_floor(self, sprite_that_falls, platform):
@@ -119,6 +116,7 @@ class GameMap:
                 sprite_that_falls.gravity.stop_falling()
                 # ensures the object lands on the platform
                 sprite_that_falls.y = top_of_platform - sprite_that_falls.height - 1
+                sprite_that_falls.on_ground = True
 
     def detect_enemy_collision(self, player):
         # check if the player is colliding with any enemies by iterating through the list of enemies

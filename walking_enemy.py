@@ -7,7 +7,8 @@ from enemy import Enemy
 
 class WalkingEnemy(Walking, Enemy):
     def __init__(self):
-        self.direction = 0
+        self.direction = 1
+        self.moving = 0
         self.x = 0
         self.y = 0
         self.set_sprite()
@@ -49,7 +50,7 @@ class WalkingEnemy(Walking, Enemy):
         self.currentFrame = self.currentFrame + 1
         if self.currentFrame >= len(self.currentAnimation):
             self.currentFrame = 0
-        self.x = self.x + (self.direction * 3)
+        self.x = self.x + (self.direction * 3 * self.moving)
         # update height every time
 
     def update(self, time_delta):

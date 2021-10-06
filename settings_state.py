@@ -15,7 +15,7 @@ class SettingsState:
         self.window_surface = window_surface
         self.ui_manager = ui_manager
         self.settings = settings
-        self.title_font = pygame.font.Font(None, 64)
+        self.title_font = self.ui_manager.get_theme().get_font(['button'])
 
         self.background_surf = None
         self.title_text = None

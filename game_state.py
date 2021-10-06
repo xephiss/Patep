@@ -8,8 +8,8 @@ import spritesheet
 
 
 class GameState:
-    def __init__(self, window_surface, clock, settings):
-        # initialise the skeleton and the platform
+    def __init__(self, window_surface, clock, settings, ui_manager):
+        # initialise the sprite and the platform
         self.level1 = game_map.GameMap()
         self.level2 = game_map.GameMap()
         self.level3 = game_map.GameMap()
@@ -18,6 +18,7 @@ class GameState:
         self.list_of_levels = [self.level1, self.level2, self.level3, self.level4, self.level5]
         self.level_finished = False
         self.current_level = 0
+        self.ui_manager = ui_manager
 
         self.window_surface = window_surface
         self.clock = clock
@@ -32,7 +33,7 @@ class GameState:
         self.lives_sprite = spritesheet.SpriteSheet("spritesheets/icons.png")
 
         self.numLives = 3
-        self.level_font = pygame.font.Font(None, 128)
+        self.level_font = self.ui_manager.get_theme().get_font(['button'])
         self.level_pos_rect = None
 
         self.is_paused = False
@@ -47,6 +48,7 @@ class GameState:
         self.transition_target = None
         self.background_surf = pygame.Surface((800, 600))
         self.player1.numLives = 3
+        self.numJumps = 3
 
     def stop(self):
         self.background_surf = None
@@ -54,26 +56,37 @@ class GameState:
     def game_over(self):
         self.is_paused = True
         self.window_surface.fill((0, 0, 0))
-        self.title_text = self.title_font.render('Game Over', True, (0, 0, 0))
+        self.title_text = self.level_font.render('Game Over', True, (255, 255, 255))
         self.title_pos_rect = self.title_text.get_rect()
         self.title_pos_rect.center = (400, 50)
         self.window_surface.blit(self.title_text, self.title_pos_rect)
 
     def handle_events(self, event):
         # transition to the main menu
-        if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
-            self.transition_target = 'main_menu'
-        # move the player in the right direction depending on the key pressed
-        if event.type == pygame.KEYDOWN and event.key == pygame.K_LEFT:
-            self.player1.walk_left()
-        if event.type == pygame.KEYDOWN and event.key == pygame.K_RIGHT:
-            self.player1.walk_right()
-        if event.type == pygame.KEYDOWN and event.key == pygame.K_UP:
-            self.player1.jump()
-        # if the level has been completed, increase the current_level variable and reset the player position
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_ESCAPE:
+                self.transition_target = 'main_menu'
+             # move the player in the right direction depending on the key pressed
+            if event.key == pygame.K_LEFT:
+                self.player1.walk_left()
+            if event.key == pygame.K_RIGHT:
+                self.player1.walk_right()
+            if event.key == pygame.K_UP:
+                if self.player1.on_ground:
+                    self.numJumps = 3
+                if self.numJumps != 0:
+                    # if the level has been completed, increase the current_level variable and reset the player position
+                    self.player1.jump()
+                    self.numJumps -= 1
+                self.player1.on_ground = False
+        if event.type == pygame.KEYUP:
+            if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
+                self.player1.stop_walking()
+
+    def current_map(self):
+        return self.list_of_levels[self.current_level]
 
     def update(self, time_delta):
-
         self.level_text = self.level_font.render('Level ' + str(self.current_level + 1), True, (0, 0, 0))
         self.level_pos_rect = self.level_text.get_rect()
         self.level_pos_rect.center = (400, 50)
@@ -105,8 +118,6 @@ class GameState:
 
             if self.player1.numLives == 0:
                 self.game_over()
+            else:
+                self.window_surface.blit(self.level_text, self.level_pos_rect)
 
-            self.window_surface.blit(self.level_text, self.level_pos_rect)
-
-    def current_map(self):
-        return self.list_of_levels[self.current_level]

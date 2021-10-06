@@ -1,0 +1,28 @@
+{
+    "button":
+    {
+      "colours": {
+        "normal_bg": "#32a852",
+        "hovered_bg":"#52C872",
+        "normal_text": "#A0A0A0",
+        "hover_text": "#FFFFFF",
+        "normal_border": "#32a852"
+      },
+  
+      "font": {
+        "name":"Bangers",
+        "size": "18",
+        "regular_resource":
+        {
+          "package": "Font",
+          "resource": "Bangers-Regular.ttf"
+        }
+      }
+    },
+  "#title_screen": {
+    "font": {
+      "name": "Bangers",
+      "size": "72"
+    }
+  }
+}

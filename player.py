@@ -9,8 +9,11 @@ from edges import Edges
 
 
 class Player(Walking, Edges):
+
     def __init__(self, selected_sprite):
-        self.direction = 0
+        # this is a constructor
+        self.direction = 1
+        self.moving = 0
 
         self.timeSinceFrame = 0
         self.walk_speed = 8.0
@@ -27,6 +30,7 @@ class Player(Walking, Edges):
         self.gravity = Gravity(self)
         self.currentAnimation = [self.standing]
         self.numLives = 0
+        self.on_ground = False
 
     def set_sprite(self, selected_sprite):
         # call the correct method for the object selected
@@ -81,7 +85,7 @@ class Player(Walking, Edges):
         self.currentFrame = self.currentFrame + 1
         if self.currentFrame >= len(self.currentAnimation):
             self.currentFrame = 0
-        self.x = self.x + (self.direction * self.walk_speed)
+        self.x = self.x + (self.direction * self.walk_speed * self.moving)
 
     def update(self, time_delta):
         # updates the frames of the animation

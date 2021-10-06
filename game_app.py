@@ -15,8 +15,9 @@ class GameApp:
         pygame.init()  # initialise pygame
 
         # initialise the window
+        pygame.display.set_caption("Jurassic Bounce")
         self.window_surface = pygame.display.set_mode((800, 600))
-        self.ui_manager = pygame_gui.UIManager((800, 600))
+        self.ui_manager = pygame_gui.UIManager((800, 600), "theme.json")
         self.clock = pygame.time.Clock()
         self.running = True
 
@@ -29,7 +30,7 @@ class GameApp:
         self.states = {'main_menu': MainMenuState(self.window_surface, self.ui_manager),
                        'settings': SettingsState(self.window_surface, self.ui_manager, self.settings),
                        'tutorial': TutorialState(self.window_surface, self.ui_manager),
-                       'game': GameState(self.window_surface, self.clock, self.settings)}
+                       'game': GameState(self.window_surface, self.clock, self.settings,self.ui_manager)}
 
         self.active_state = self.states['main_menu']  # start the app in the main menu
 

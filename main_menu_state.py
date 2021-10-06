@@ -11,7 +11,7 @@ class MainMenuState:
         self.transition_target = None
         self.window_surface = window_surface
         self.ui_manager = ui_manager
-        self.title_font = pygame.font.Font(None, 128)
+        self.title_font = self.ui_manager.get_theme().get_font(['#title_screen'])
 
         self.background_surf = None
         self.title_text = None
@@ -28,7 +28,7 @@ class MainMenuState:
 
         # draw background and title for main menu
         self.background_surf = pygame.Surface((800, 600))
-        self.title_text = self.title_font.render('My Game', True, (0, 0, 0))
+        self.title_text = self.title_font.render('Jurassic Bounce', True, (0, 0, 0))
         self.title_pos_rect = self.title_text.get_rect()
         self.title_pos_rect.center = (400, 50)
 
