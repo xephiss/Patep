@@ -13,6 +13,8 @@ class Walking:
 
     def stop_walking(self):
         # stop walking
+        self.currentAnimation = self.standing
+        self.currentFrame = 0
         self.moving = 0
 
     def left_edge(self):

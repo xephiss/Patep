@@ -12,7 +12,7 @@ class WalkingEnemy(Walking, Enemy):
         self.x = 0
         self.y = 0
         self.set_sprite()
-        self.currentAnimation = [self.standing]
+        self.currentAnimation = self.standing
         self.currentFrame = 0
         self.gravity = Gravity(self)
         self.velocityY = 0
@@ -34,7 +34,7 @@ class WalkingEnemy(Walking, Enemy):
             (1217, 227, 122, 86),
             (1388, 227, 122, 86)
         ])
-        self.standing = ss.image_at((6, 0, 122, 79))
+        self.standing = [ss.image_at((6, 0, 122, 79))]
         self.height = 86
         self.width = 84
 

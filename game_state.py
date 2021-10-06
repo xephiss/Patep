@@ -73,7 +73,7 @@ class GameState:
                 self.player1.walk_right()
             if event.key == pygame.K_UP:
                 if self.player1.on_ground:
-                    self.numJumps = 3
+                    self.numJumps = 1000
                 if self.numJumps != 0:
                     # if the level has been completed, increase the current_level variable and reset the player position
                     self.player1.jump()

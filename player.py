@@ -28,7 +28,7 @@ class Player(Walking, Edges):
         self.velocityY = 0
         self.accelerationY = 0
         self.gravity = Gravity(self)
-        self.currentAnimation = [self.standing]
+        self.currentAnimation = self.standing
         self.numLives = 0
         self.on_ground = False
 
@@ -41,7 +41,7 @@ class Player(Walking, Edges):
 
     def set_sprite_skeleton(self):
         ss = spritesheet.SpriteSheet('spritesheets/skeleton_sheet.png')
-        self.standing = ss.image_at((14, 143, 35, 48), -1)
+        self.standing = [ss.image_at((14, 143, 35, 48), -1)]
         self.walking = ss.images_at([
             # (15 , 78, 35, 50)
             (79, 206, 35, 50),
@@ -69,7 +69,7 @@ class Player(Walking, Edges):
             (907, 218, 84, 91),
             (1034, 218, 84, 91),
         ])
-        self.standing = ss.image_at((10, 218, 83, 91))
+        self.standing = [ss.image_at((10, 218, 83, 91))]
         self.height = 91
         self.width = 84
 

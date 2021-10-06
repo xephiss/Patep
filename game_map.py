@@ -55,13 +55,13 @@ class GameMap:
 
     def draw(self, view_port):
         # checks if the left edge of the viewport is within the right background image panel
-        if view_port.offsetX >= self.background_right_x:
+        if view_port.offsetX > self.background_right_x:
             self.background_left_x = self.background_middle_x
             self.background_middle_x = self.background_right_x
             self.background_right_x = self.background_right_x + 1000
 
         # checks if the left edge of the viewport is within the left background image panel
-        elif view_port.offsetX <= self.background_right_x:
+        elif view_port.offsetX < self.background_middle_x:
             self.background_right_x = self.background_middle_x
             self.background_middle_x = self.background_left_x
             self.background_left_x = self.background_left_x - 1000
