@@ -40,11 +40,19 @@ class GameMap:
             if self.chance_of_enemy():
                 self.generate_enemy(new_platform_x, new_platform_width, new_platform_y)
 
+            if self.chance_of_coin():
+                # draw coin
+                pass
+
             self.create_end_level_marker()
 
     def chance_of_enemy(self):
         # 1 in 3 chance of an enemy
         return random.randint(1, 3) == 1
+
+    def chance_of_coin(self):
+        # 1 in 2 chance of an enemy
+        return random.randint(1, 2) == 1
 
     def generate_enemy(self, platform_x, platform_width, platform_y):
         enemy = WalkingEnemy()
