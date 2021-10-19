@@ -3,8 +3,8 @@ import pygame
 import player
 import game_map
 import view_port
-import lives
 import spritesheet
+from icons import Icons
 
 
 class GameState:
@@ -19,6 +19,7 @@ class GameState:
         self.level_finished = False
         self.current_level = 0
         self.ui_manager = ui_manager
+        self.icons =Icons(self.ui_manager)
 
         self.window_surface = window_surface
         self.clock = clock
@@ -29,8 +30,6 @@ class GameState:
 
         self.settings = settings
         self.player1 = player.Player(self.settings['selected_sprite'])
-
-        self.lives_sprite = spritesheet.SpriteSheet("spritesheets/icons.png")
 
         self.level_font = self.ui_manager.get_theme().get_font(['button'])
         self.level_pos_rect = None
@@ -111,7 +110,8 @@ class GameState:
             # checks if the player is colliding with any coins
             self.current_map().detect_coin_collision(self.player1)
 
-            lives.draw_lives(self.player1.num_lives, self.window_surface, self.lives_sprite)  # draw the icons for lives
+            self.icons.draw_num_coins(self.player1.num_coins, self.window_surface) # draw the number of coins
+            self.icons.draw_lives(self.player1.num_lives, self.window_surface)  # draw the icons for lives
             # draws the player
             self.player1.draw(self.view_port)
             self.level_finished = self.current_map().end_level(self.player1)
