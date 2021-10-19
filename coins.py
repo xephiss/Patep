@@ -19,9 +19,9 @@ class Coin:
         ss = spritesheet.SpriteSheet("spritesheets/coin.png")
         self.turning_coin = ss.images_at([
             (0, 0, 32, 32),
-            (40, 0, 23, 32),
-            (70, 0, 10, 32),
-            (87, 0, 23, 32),
+            (36, 0, 32, 32),
+            (59, 0, 32, 32),
+            (83, 0, 32, 32),
         ], -1)
         self.still_coin = ss.image_at((0, 0, 32, 32), -1)
 
