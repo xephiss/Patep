@@ -102,15 +102,15 @@ class GameMap:
             if view_port.contains(platform):
                 platform.draw(view_port)
 
-        # iterate through the list of enemies and draw them
-        for enemy in self.enemies:
-            if view_port.contains(enemy):
-                enemy.draw(view_port)
-
         # iterate through the lise of coins and draw them
         for coin in self.coins:
             if view_port.contains(coin):
                 coin.draw(view_port)
+
+        # iterate through the list of enemies and draw them
+        for enemy in self.enemies:
+            if view_port.contains(enemy):
+                enemy.draw(view_port)
 
         self.draw_end_level_marker(view_port)
 
@@ -184,3 +184,9 @@ class GameMap:
                 # check if the enemy should be falling
                 self.handle_floor(enemy, False)
                 self.handle_platform_edge(enemy)
+        # iterate through list of coins
+        for coin in self.coins:
+            # check if the coin is in the viewport
+            if view_port.contains(coin):
+                # update the coin
+                coin.update(time_delta)
