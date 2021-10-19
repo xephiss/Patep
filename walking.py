@@ -24,6 +24,6 @@ class Walking:
         return self.x + (self.width / 3 * 2)
 
     def set_position(self, x, y):
-        # set the position of the skeleton
+        # set the position of the sprite
         self.x = x
         self.y = y

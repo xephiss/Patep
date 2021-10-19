@@ -1,6 +1,7 @@
 import pygame
 from game_platform import Platform
 from walking_enemy import WalkingEnemy
+from coins import Coin
 import spritesheet
 import random
 
@@ -10,6 +11,7 @@ class GameMap:
         self.platform_instance1 = Platform(100, 420, 256, 64)
         self.platforms = [self.platform_instance1, ]
         self.enemies = []
+        self.coins = []
         self.background_IMG = pygame.image.load("tiles/png/BG/BG - Copy.png").convert()
         self.background_middle_x = 0
         self.background_left_x = self.background_middle_x - 1000
@@ -40,9 +42,8 @@ class GameMap:
             if self.chance_of_enemy():
                 self.generate_enemy(new_platform_x, new_platform_width, new_platform_y)
 
-            if self.chance_of_coin():
-                # draw coin
-                pass
+            # generate the coins
+            self.generate_coins(new_platform_x, new_platform_width , new_platform_y)
 
             self.create_end_level_marker()
 
@@ -65,6 +66,18 @@ class GameMap:
         enemy.walk_left()
         # append the enemy to the list of enemies
         self.enemies.append(enemy)
+
+    def generate_coins(self, platform_x, platform_width, platform_y):
+        coin_x = platform_x + 16
+        while coin_x < platform_x + platform_width:
+            if self.chance_of_coin():
+                # set random y position of coin to somewhere above the platform in reach of player
+                random_y = random.randint(platform_y - 110, platform_y - 32)
+                # create instance of class Coin
+                coin = Coin(coin_x, random_y)
+                # appened the coin to the list of coins
+                self.coins.append(coin)
+            coin_x += 64
 
     def draw(self, view_port):
         # checks if the left edge of the viewport is within the right background image panel
@@ -93,6 +106,11 @@ class GameMap:
         for enemy in self.enemies:
             if view_port.contains(enemy):
                 enemy.draw(view_port)
+
+        # iterate through the lise of coins and draw them
+        for coin in self.coins:
+            if view_port.contains(coin):
+                coin.draw(view_port)
 
         self.draw_end_level_marker(view_port)
 

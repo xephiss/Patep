@@ -4,14 +4,16 @@ import spritesheet
 
 class Coin:
     def __init__(self, x, y):
-        self.turning_coin = []
         self.still_coin = 0
+        self.load_coins()
         self.current_animation = self.turning_coin
         self.current_frame = 0
         self.time_since_frame = 0
         self.time_between_steps = 0
         self.x = x
         self.y = y
+        self.width = 32
+        self.height = 32
 
     def load_coins(self):
         ss = spritesheet.SpriteSheet("spritesheets/coin.png")
