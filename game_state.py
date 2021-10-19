@@ -108,6 +108,9 @@ class GameState:
                 #   call on death method
                 self.player1.on_death()
 
+            # checks if the player is colliding with any coins
+            self.current_map().detect_coin_collision(self.player1)
+
             lives.draw_lives(self.player1.num_lives, self.window_surface, self.lives_sprite)  # draw the icons for lives
             # draws the player
             self.player1.draw(self.view_port)
