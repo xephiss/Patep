@@ -38,17 +38,16 @@ class GameState:
 
         self.is_paused = False
 
+        self.numJumps = 3
 
     def start(self):
-        self.is_paused = False
         self.player1 = player.Player(self.settings['selected_sprite'])
-
+        self.is_paused = False
         self.player1.set_position(110, 300)
         self.player1.gravity.fall()  # applies gravity to player by calling the gravity class
         self.transition_target = None
         self.background_surf = pygame.Surface((800, 600))
-        self.player1.numLives = 3
-        self.numJumps = 3
+        self.player1.num_lives = 3
 
     def stop(self):
         self.background_surf = None
@@ -66,7 +65,7 @@ class GameState:
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_ESCAPE:
                 self.transition_target = 'main_menu'
-             # move the player in the right direction depending on the key pressed
+            # move the player in the right direction depending on the key pressed
             if event.key == pygame.K_LEFT:
                 self.player1.walk_left()
             if event.key == pygame.K_RIGHT:
@@ -78,6 +77,7 @@ class GameState:
                     # if the level has been completed, increase the current_level variable and reset the player position
                     self.player1.jump()
                     self.numJumps -= 1
+                    print(self.player1.y)
                 self.player1.on_ground = False
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
@@ -104,11 +104,11 @@ class GameState:
             # detect if the player is colliding with any enemies
             if self.current_map().detect_enemy_collision(self.player1):
                 # take away a life
-                self.player1.numLives = self.player1.numLives - 1
+                self.player1.num_lives = self.player1.num_lives - 1
                 #   call on death method
                 self.player1.on_death()
 
-            lives.draw_lives(self.player1.numLives, self.window_surface, self.lives_sprite)  # draw the icons for lives
+            lives.draw_lives(self.player1.num_lives, self.window_surface, self.lives_sprite)  # draw the icons for lives
             # draws the player
             self.player1.draw(self.view_port)
             self.level_finished = self.current_map().end_level(self.player1)
@@ -116,8 +116,7 @@ class GameState:
                 self.current_level += 1
                 self.player1.set_position(110, 300)
 
-            if self.player1.numLives == 0:
+            if self.player1.num_lives == 0:
                 self.game_over()
             else:
                 self.window_surface.blit(self.level_text, self.level_pos_rect)
-

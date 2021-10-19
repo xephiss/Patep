@@ -6,14 +6,14 @@ class Gravity:
 
     def update_velocity_y(self, time_delta):
         # update the velocity that the object moves across the y axis
-        self.object.velocityY = self.object.velocityY + (self.object.accelerationY * time_delta)
-        self.object.y = self.object.y + (self.object.velocityY * time_delta)
+        self.object.velocity_y = self.object.velocity_y + (self.object.acceleration_y * time_delta)
+        self.object.y = self.object.y + (self.object.velocity_y * time_delta)
 
     def fall(self):
         # start the object falling
-        self.object.accelerationY = 500
+        self.object.acceleration_y = 500
 
     def stop_falling(self):
         # stops the object from falling
-        self.object.accelerationY = 0
-        self.object.velocityY = 0
+        self.object.acceleration_y = 0
+        self.object.velocity_y = 0

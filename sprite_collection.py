@@ -3,14 +3,14 @@ import pygame
 
 
 class SpriteCollection(object):
-    def __init__(self, directoryName, width, height):
-        self.directoryName = directoryName
+    def __init__(self, directory_name, width, height):
+        self.directory_name = directory_name
         self.width = width
         self.height = height
 
     def single_image(self, fileName, colorkey):
         try:
-            image = pygame.image.load(self.directoryName + "/" + fileName).convert_alpha()
+            image = pygame.image.load(self.directory_name + "/" + fileName).convert_alpha()
         except pygame.error as message:
             print('Unable to load object image:', fileName)
             raise SystemExit(message)

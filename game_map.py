@@ -7,8 +7,8 @@ import random
 
 class GameMap:
     def __init__(self):
-        self.Platforminstance1 = Platform(100, 420, 256, 64)
-        self.platforms = [self.Platforminstance1, ]
+        self.platform_instance1 = Platform(100, 420, 256, 64)
+        self.platforms = [self.platform_instance1, ]
         self.enemies = []
         self.background_IMG = pygame.image.load("tiles/png/BG/BG - Copy.png").convert()
         self.background_middle_x = 0
@@ -55,21 +55,26 @@ class GameMap:
         return random.randint(1, 2) == 1
 
     def generate_enemy(self, platform_x, platform_width, platform_y):
+        # create instance of class WalkingEnemy
         enemy = WalkingEnemy()
+        # get a random x coordinate on the platform
         random_x = random.randint(platform_x, platform_x + platform_width - enemy.width)
+        # set the position of the new enemy object
         enemy.set_position(random_x, platform_y - enemy.height)
+        # start the enemy walking left
         enemy.walk_left()
+        # append the enemy to the list of enemies
         self.enemies.append(enemy)
 
     def draw(self, view_port):
         # checks if the left edge of the viewport is within the right background image panel
-        if view_port.offsetX > self.background_right_x:
+        if view_port.offset_x > self.background_right_x:
             self.background_left_x = self.background_middle_x
             self.background_middle_x = self.background_right_x
             self.background_right_x = self.background_right_x + 1000
 
         # checks if the left edge of the viewport is within the left background image panel
-        elif view_port.offsetX < self.background_middle_x:
+        elif view_port.offset_x < self.background_middle_x:
             self.background_right_x = self.background_middle_x
             self.background_middle_x = self.background_left_x
             self.background_left_x = self.background_left_x - 1000
@@ -101,7 +106,7 @@ class GameMap:
                 sprite_that_falls.y = sprite_that_falls.height
             elif sprite_that_falls.y > 800:
                 # sprite_that_falls.y = self.height
-                sprite_that_falls.numLives -= 1
+                sprite_that_falls.num_lives -= 1
                 sprite_that_falls.on_death()
 
     def handle_platform_edge(self, sprite_that_turns):

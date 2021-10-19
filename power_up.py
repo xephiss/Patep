@@ -1,27 +1,23 @@
-import pygame
 import spritesheet
 
 
-class Coin:
+class PowerUp:
     def __init__(self, x, y):
         self.turning_coin = []
         self.still_coin = 0
-        self.current_animation = self.turning_coin
+        self.current_animation = self.power_up_sprites
         self.current_frame = 0
         self.time_since_frame = 0
         self.time_between_steps = 0
         self.x = x
         self.y = y
 
-    def load_coins(self):
-        ss = spritesheet.SpriteSheet("spritesheets/coin.png")
-        self.turning_coin = ss.images_at([
-            (0, 0, 32, 32),
-            (40, 0, 23, 32),
-            (70, 0, 10, 32),
-            (87, 0, 23, 32),
+    def load_power_up(self):
+        ss = spritesheet.SpriteSheet('spritesheets/gems.png')
+        self.power_up_sprites = ss.images_at([
+            (0, 0, 37, 32),
+            (51, 0, 37, 32),
         ], -1)
-        self.still_coin = ss.image_at((0, 0, 32, 32), -1)
 
     def draw(self, screen):
         # draw the animation to the screen

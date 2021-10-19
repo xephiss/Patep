@@ -1,20 +1,20 @@
 class Walking:
     def walk_left(self):
-        # make the skeleton walk left
-        self.currentAnimation = self.walking
+        # make the sprite walk left
+        self.current_animation = self.walking
         self.direction = -1
         self.moving = 1
 
     def walk_right(self):
-        # make the skeleton walk right
-        self.currentAnimation = self.walking
+        # make the sprite walk right
+        self.current_animation = self.walking
         self.direction = +1
         self.moving = 1
 
     def stop_walking(self):
         # stop walking
-        self.currentAnimation = self.standing
-        self.currentFrame = 0
+        self.current_animation = self.standing
+        self.current_frame = 0
         self.moving = 0
 
     def left_edge(self):
