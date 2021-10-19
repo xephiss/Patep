@@ -10,12 +10,6 @@ from icons import Icons
 class GameState:
     def __init__(self, window_surface, clock, settings, ui_manager):
         # initialise the sprite and the platform
-        self.level1 = game_map.GameMap()
-        self.level2 = game_map.GameMap()
-        self.level3 = game_map.GameMap()
-        self.level4 = game_map.GameMap()
-        self.level5 = game_map.GameMap()
-        self.list_of_levels = [self.level1, self.level2, self.level3, self.level4, self.level5]
         self.level_finished = False
         self.current_level = 0
         self.ui_manager = ui_manager
@@ -39,6 +33,13 @@ class GameState:
         self.num_jumps = 3
 
     def start(self):
+        self.level1 = game_map.GameMap()
+        self.level2 = game_map.GameMap()
+        self.level3 = game_map.GameMap()
+        self.level4 = game_map.GameMap()
+        self.level5 = game_map.GameMap()
+        self.list_of_levels = [self.level1, self.level2, self.level3, self.level4, self.level5]
+
         self.player1 = player.Player(self.settings['selected_sprite'])
         self.is_paused = False
         self.player1.set_position(110, 300)
@@ -47,6 +48,7 @@ class GameState:
         self.background_surf = pygame.Surface((800, 600))
         self.player1.num_lives = 3
         self.player1.num_coins = 0
+
 
     def stop(self):
         self.background_surf = None
