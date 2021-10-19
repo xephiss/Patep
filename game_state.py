@@ -13,7 +13,7 @@ class GameState:
         self.level_finished = False
         self.current_level = 0
         self.ui_manager = ui_manager
-        self.icons =Icons(self.ui_manager)
+        self.icons = Icons(self.ui_manager)
 
         self.window_surface = window_surface
         self.clock = clock
@@ -42,7 +42,7 @@ class GameState:
 
         self.player1 = player.Player(self.settings['selected_sprite'])
         self.is_paused = False
-        self.player1.set_position(110, 300)
+        self.player1.set_position(110, 300) # change way this is done to be based on first platform of level pos
         self.player1.gravity.fall()  # applies gravity to player by calling the gravity class
         self.transition_target = None
         self.background_surf = pygame.Surface((800, 600))
