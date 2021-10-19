@@ -155,6 +155,16 @@ class GameMap:
             if enemy.detect_collision(player):
                 return True
 
+    def detect_coin_collision(self, player):
+        # iterate through the list of coins
+        for coin in self.coins:
+            # check if the player is colliding with the coin
+            if coin.detect_collision(player):
+                # increase the number of coins
+                player.num_coins += 1
+                # call the method hide
+                coin.hide()
+
     def draw_end_level_marker(self, view_port):
         end_level_marker_spritesheet = spritesheet.SpriteSheet('spritesheets/portal.png')
         end_level_marker = end_level_marker_spritesheet.image_at((0, 0, 74, 81))

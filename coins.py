@@ -1,8 +1,9 @@
 import pygame
 import spritesheet
+from edges import Edges
 
 
-class Coin:
+class Coin(Edges):
     def __init__(self, x, y):
         self.still_coin = 0
         self.load_coins()
@@ -14,6 +15,7 @@ class Coin:
         self.y = y
         self.width = 32
         self.height = 32
+        self.collected = False
 
     def load_coins(self):
         ss = spritesheet.SpriteSheet("spritesheets/coin.png")
@@ -26,9 +28,10 @@ class Coin:
         self.still_coin = ss.image_at((0, 0, 32, 32), -1)
 
     def draw(self, screen):
-        # draw the animation to the screen
-        frame = self.current_animation[self.current_frame]
-        screen.blit(frame, (self.x, self.y))
+        if not self.collected:
+            # draw the animation to the screen
+            frame = self.current_animation[self.current_frame]
+            screen.blit(frame, (self.x, self.y))
 
     def next_frame(self):
         # finds the next frame in the animation sequence
@@ -42,3 +45,12 @@ class Coin:
         if self.time_since_frame >= self.time_between_frames:
             self.next_frame()
             self.time_since_frame -= self.time_between_frames
+
+    def detect_collision(self, player):
+        if not self.collected:
+            if player.right_edge() >= self.left_edge() and player.left_edge() <= self.right_edge():
+                if player.bottom_edge() >= self.top_edge() and player.top_edge() <= self.bottom_edge():
+                    return True
+
+    def hide(self):
+        self.collected = True

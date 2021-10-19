@@ -32,13 +32,12 @@ class GameState:
 
         self.lives_sprite = spritesheet.SpriteSheet("spritesheets/icons.png")
 
-        self.numLives = 3
         self.level_font = self.ui_manager.get_theme().get_font(['button'])
         self.level_pos_rect = None
 
         self.is_paused = False
 
-        self.numJumps = 3
+        self.num_jumps = 3
 
     def start(self):
         self.player1 = player.Player(self.settings['selected_sprite'])
@@ -48,6 +47,7 @@ class GameState:
         self.transition_target = None
         self.background_surf = pygame.Surface((800, 600))
         self.player1.num_lives = 3
+        self.player1.num_coins = 0
 
     def stop(self):
         self.background_surf = None
@@ -72,11 +72,11 @@ class GameState:
                 self.player1.walk_right()
             if event.key == pygame.K_UP:
                 if self.player1.on_ground:
-                    self.numJumps = 1000
-                if self.numJumps != 0:
+                    self.num_jumps = 1000
+                if self.num_jumps != 0:
                     # if the level has been completed, increase the current_level variable and reset the player position
                     self.player1.jump()
-                    self.numJumps -= 1
+                    self.num_jumps -= 1
                     print(self.player1.y)
                 self.player1.on_ground = False
         if event.type == pygame.KEYUP:

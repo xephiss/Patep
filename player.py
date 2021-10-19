@@ -30,6 +30,7 @@ class Player(Walking, Edges):
         self.gravity = Gravity(self)
         self.current_animation = self.standing
         self.num_lives = 0
+        self.num_coins = 0
         self.on_ground = False
 
     def set_sprite(self, selected_sprite):
