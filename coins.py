@@ -9,7 +9,7 @@ class Coin:
         self.current_animation = self.turning_coin
         self.current_frame = 0
         self.time_since_frame = 0
-        self.time_between_steps = 0
+        self.time_between_frames = 0
         self.x = x
         self.y = y
         self.width = 32
@@ -39,6 +39,6 @@ class Coin:
     def update(self, time_delta):
         # updates the frames of the animation
         self.time_since_frame += time_delta
-        if self.time_since_frame >= self.time_between_steps:
+        if self.time_since_frame >= self.time_between_frames:
             self.next_frame()
-            self.time_since_frame -= self.time_between_steps
+            self.time_since_frame -= self.time_between_frames
