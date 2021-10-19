@@ -9,7 +9,7 @@ class Coin:
         self.current_animation = self.turning_coin
         self.current_frame = 0
         self.time_since_frame = 0
-        self.time_between_frames = 5
+        self.time_between_frames = 0.25
         self.x = x
         self.y = y
         self.width = 32
