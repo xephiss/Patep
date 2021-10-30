@@ -25,7 +25,8 @@ class GameState:
         self.settings = settings
         self.player1 = player.Player(self.settings['selected_sprite'])
 
-        self.level_font = self.ui_manager.get_theme().get_font(['button'])
+        self.level_font = self.ui_manager.get_theme().get_font(['#level_text'])
+        self.game_over_font = self.ui_manager.get_theme().get_font(['#game_over'])
         self.level_pos_rect = None
 
         self.is_paused = False
@@ -56,10 +57,10 @@ class GameState:
     def game_over(self):
         self.is_paused = True
         self.window_surface.fill((0, 0, 0))
-        self.title_text = self.level_font.render('Game Over', True, (255, 255, 255))
-        self.title_pos_rect = self.title_text.get_rect()
-        self.title_pos_rect.center = (400, 50)
-        self.window_surface.blit(self.title_text, self.title_pos_rect)
+        self.game_over_text = self.game_over_font.render('Game Over', True, (255, 255, 255))
+        self.game_over_pos_rect = self.game_over_text.get_rect()
+        self.game_over_pos_rect.center = (400, 50)
+        self.window_surface.blit(self.game_over_text, self.game_over_pos_rect)
 
     def handle_events(self, event):
         # transition to the main menu
@@ -73,9 +74,8 @@ class GameState:
                 self.player1.walk_right()
             if event.key == pygame.K_UP:
                 if self.player1.on_ground:
-                    self.num_jumps = 1000
+                    self.num_jumps = 3
                 if self.num_jumps != 0:
-                    # if the level has been completed, increase the current_level variable and reset the player position
                     self.player1.jump()
                     self.num_jumps -= 1
                     print(self.player1.y)

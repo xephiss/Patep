@@ -2,6 +2,7 @@ import pygame
 from game_platform import Platform
 from walking_enemy import WalkingEnemy
 from coins import Coin
+from power_up import PowerUp
 import spritesheet
 import random
 
@@ -12,6 +13,7 @@ class GameMap:
         self.platforms = [self.platform_instance1, ]
         self.enemies = []
         self.coins = []
+        self.power_ups = []
         self.background_IMG = pygame.image.load("tiles/png/BG/BG - Copy.png").convert()
         self.background_middle_x = 0
         self.background_left_x = self.background_middle_x - 1000
@@ -43,7 +45,9 @@ class GameMap:
                 self.generate_enemy(new_platform_x, new_platform_width, new_platform_y)
 
             # generate the coins
-            self.generate_coins(new_platform_x, new_platform_width , new_platform_y)
+            self.generate_coins(new_platform_x, new_platform_width, new_platform_y)
+
+            self.generate_power_ups(new_platform_x, new_platform_width, new_platform_y)
 
             self.create_end_level_marker()
 
@@ -53,6 +57,10 @@ class GameMap:
 
     def chance_of_coin(self):
         # 1 in 2 chance of an enemy
+        return random.randint(1, 2) == 1
+
+    def chance_of_power_up(self):
+        # 1 in 5 chance of a power up
         return random.randint(1, 2) == 1
 
     def generate_enemy(self, platform_x, platform_width, platform_y):
@@ -75,9 +83,21 @@ class GameMap:
                 random_y = random.randint(platform_y - 110, platform_y - 32)
                 # create instance of class Coin
                 coin = Coin(coin_x, random_y)
-                # appened the coin to the list of coins
+                # append the coin to the list of coins
                 self.coins.append(coin)
             coin_x += 64
+
+    def generate_power_ups(self, platform_x, platform_width, platform_y):
+        power_up_x = platform_x + 16
+        while power_up_x < platform_x + platform_width:
+            if self.chance_of_power_up():
+                # set random y pos of power_up to somewhere above the platform in reach of the player
+                random_y = random.randint(platform_y - 110, platform_y - 32)
+                # create instance of class PowerUp
+                power_up = PowerUp(power_up_x, random_y)
+                # append the power up to the list of power ups
+                self.power_ups.append(power_up)
+            power_up_x + 64
 
     def draw(self, view_port):
         # checks if the left edge of the viewport is within the right background image panel
@@ -102,10 +122,15 @@ class GameMap:
             if view_port.contains(platform):
                 platform.draw(view_port)
 
-        # iterate through the lise of coins and draw them
+        # iterate through the list of coins and draw them
         for coin in self.coins:
             if view_port.contains(coin):
                 coin.draw(view_port)
+
+        # iterate through the list  of power_ups
+        for power_up in self.power_ups:
+            if view_port.contains(power_up):
+                power_up.draw(view_port)
 
         # iterate through the list of enemies and draw them
         for enemy in self.enemies:
@@ -165,6 +190,16 @@ class GameMap:
                 # call the method hide
                 coin.hide()
 
+    def detect_power_up_collision(self, player):
+        # iterate through the list of power_up
+        for power_up in self.power_ups:
+            # check if the player is colliding with the power_up
+            if power_up.detect_collision(player):
+                # speed up the player
+
+                # call the method hide
+                power_up.hide()
+
     def draw_end_level_marker(self, view_port):
         end_level_marker_spritesheet = spritesheet.SpriteSheet('spritesheets/portal.png')
         end_level_marker = end_level_marker_spritesheet.image_at((0, 0, 74, 81))
@@ -200,3 +235,4 @@ class GameMap:
             if view_port.contains(coin):
                 # update the coin
                 coin.update(time_delta)
+

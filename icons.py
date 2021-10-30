@@ -5,7 +5,7 @@ class Icons:
     def __init__(self, ui_manager):
         self.lives_sprite = spritesheet.SpriteSheet("spritesheets/icons.png")
         self.y = 10
-        self.coin_font = ui_manager.get_theme().get_font(['button'])
+        self.coin_font = ui_manager.get_theme().get_font(['#level_text'])
 
     def draw_lives(self, num_lives, window_surface):
         x = 10
@@ -19,3 +19,4 @@ class Icons:
     def draw_num_coins(self, num_coins, window_surface):
         coin_text = self.coin_font.render(str(num_coins), True, (0, 0, 0))
         window_surface.blit(coin_text, (200, self.y))
+
